@@ -88,7 +88,7 @@ function card(p, { near = false } = {}) {
 }
 
 function fontRow(p, { near = false } = {}) {
-  return `<article class="frow" data-card data-cat="${p.category}">
+  return `<article class="frow" data-card data-cat="${p.category}" data-name="${esc(p.name.toLowerCase())}" data-price="${p.price}" data-date="${p.releaseDate}" data-pop="${p.popularity ?? 0}">
   <header class="frow-head">
     <div class="frow-name"><h3><a class="frow-link" href="/fonts/${p.slug}/">${esc(p.name)}</a></h3><span class="badge">${esc(catName(p.category))}</span></div>
     <div class="frow-buy"><span class="price">${fromPrice(p)}</span><a class="link" href="/fonts/${p.slug}/" aria-label="Details for ${esc(p.name)}">Details</a><a class="btn sm" href="${esc(p.gumroadUrl)}" target="_blank" rel="noopener">Buy ${esc(p.name)}<span class="sr"> on Gumroad (opens in a new tab)</span></a></div>
@@ -226,33 +226,40 @@ ${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
 // SHOP
 {
   const counts = (c) => products.filter((p) => p.category === c).length;
+  const usedCats = cats.filter((c) => counts(c.slug));
+  const soonCats = cats.filter((c) => !counts(c.slug));
+  const soonText = soonCats.length ? `${soonCats.map((c) => c.name.toLowerCase().replace(' handwritten', '')).join(', ').replace(/, ([^,]*)$/, ' and $1')} fonts are on the way.` : '';
+  const big = products.length >= (site.shopControlsFrom || 6);
+  const list = [...products].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
   const body = `
-<div class="wrap page-title"><h1>Fonts</h1><p>Type your text once and compare every font side by side. Filter by style, search by name, or sort by newest, popularity and price.</p></div>
-<div class="toolbar" role="region" aria-label="Catalog controls"><div class="wrap">
-  <div class="row">
+<div class="wrap page-title"><h1>Fonts</h1><p>Type your words once and compare every font side by side.</p></div>
+<div class="wrap shop">
+  ${testerControls({ id: 'shop', max: 160 })}
+  <p class="tester-note">Leave the field empty to see each font's name. Your settings carry over to the home and font pages.</p>
+  ${big ? `<div class="shop-tools">
     <div class="field"><label for="q">Search by font name</label><input type="search" id="q" data-q placeholder="Search fonts" autocomplete="off"></div>
     <div class="field"><label for="sort">Sort by</label><select id="sort" data-sort><option value="newest">Newest</option><option value="popular">Popularity</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="name">Name</option></select></div>
-    <div class="field"><span class="label" id="v-l">View</span><div class="seg" role="group" aria-labelledby="v-l"><button type="button" data-view="grid" aria-pressed="true" aria-label="Grid view">${icons.grid}</button><button type="button" data-view="list" aria-pressed="false" aria-label="List view">${icons.list}</button></div></div>
-    <div class="field"><span class="label">&nbsp;</span><button type="button" class="btn ghost" data-clear hidden>Clear filters</button></div>
+    <div class="field"><span class="label" id="v-l">View</span><div class="seg" role="group" aria-labelledby="v-l"><button type="button" data-view="list" aria-pressed="true" aria-label="List view">${icons.list}</button><button type="button" data-view="grid" aria-pressed="false" aria-label="Grid view">${icons.grid}</button></div></div>
+  </div>` : ''}
+  <div class="chip-row shop-bar">
+    <div class="chips" role="group" aria-label="Filter by category">
+      <button type="button" class="chip" data-cat-chip="all" aria-pressed="true">All<span class="n">${products.length}</span></button>
+      ${usedCats.map((c) => `<button type="button" class="chip" data-cat-chip="${c.slug}" aria-pressed="false">${esc(c.name)}<span class="n">${counts(c.slug)}</span></button>`).join('')}
+    </div>
+    ${soonText ? `<p class="muted small">${esc(soonText.charAt(0).toUpperCase() + soonText.slice(1))}</p>` : ''}
+    <p class="muted shop-count" role="status" aria-live="polite"><span data-count>${products.length === 1 ? '1 font' : products.length + ' fonts'}</span><button type="button" class="link-btn" data-clear hidden>Clear filters</button></p>
   </div>
-  <div class="chips" role="group" aria-label="Filter by category" style="margin-top:.9rem">
-    <button type="button" class="chip" data-cat-chip="all" aria-pressed="true">All<span class="n">${products.length}</span></button>
-    ${cats.map((c) => `<button type="button" class="chip" data-cat-chip="${c.slug}" aria-pressed="false">${esc(c.name)}<span class="n">${counts(c.slug)}</span></button>`).join('')}
-  </div>
-</div></div>
-<div class="wrap">
-  <details open class="preview-panel" style="margin-top:1rem"><summary>Preview text and style</summary>${testerControls({ id: 'shop', max: 160 })}</details>
-  <div class="result-bar"><p class="muted" style="margin:0" role="status" aria-live="polite"><span data-count>${products.length} fonts</span></p><button type="button" class="link" style="background:none;border:0;cursor:pointer;font:inherit" data-clear hidden>Clear filters</button></div>
   <h2 class="sr">Catalog</h2>
-  <div class="cards" data-grid>${products.map((p, i) => card(p, { near: i < 2 })).join('')}</div>
-  <div class="empty" data-empty hidden><h2>No fonts match</h2><p>Try a shorter name or another category. You can also clear the filters and see the whole catalog.</p><button type="button" class="btn" data-clear>Clear filters</button></div>
+  <div class="frows" data-grid>${list.map((p, i) => fontRow(p, { near: i < 2 })).join('')}</div>
+  <div class="empty" data-empty hidden><h2>No fonts match</h2><p>Try a shorter name or another category, or clear the filters to see every font.</p><button type="button" class="btn" data-clear>Clear filters</button></div>
+  ${big ? '' : '<div class="soon-row"><p>More handwritten fonts are on the way.</p></div>'}
   <div style="height:clamp(3rem,6vw,5rem)"></div>
 </div>`;
   add('/shop/', layout({
     title: 'Handwritten fonts: shop and live tester',
     desc: 'Browse every Typology handwritten font. Type your own text and preview signature, brush script, casual, monoline, elegant and playful fonts side by side.',
     path: '/shop/', cur: '/shop/', body, scripts: ['shop'],
-    ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/']]), { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Typology fonts', itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/fonts/${p.slug}/`, name: p.name })) }],
+    ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/']]), { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Typology fonts', itemListElement: list.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/fonts/${p.slug}/`, name: p.name })) }],
   }));
 }
 
