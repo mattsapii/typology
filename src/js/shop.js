@@ -3,6 +3,7 @@ const main = document.querySelector('main');
 initTester(main, { page: 'shop', size: 72 });
 lazyFonts(main);
 
+// Search, sort and view only render when the catalog is large enough; every control is optional here.
 const grid = document.querySelector('[data-grid]');
 const cards = [...grid.querySelectorAll('[data-card]')];
 const q = document.querySelector('[data-q]');
@@ -12,13 +13,13 @@ const count = document.querySelector('[data-count]');
 const empty = document.querySelector('[data-empty]');
 const clearBtns = [...document.querySelectorAll('[data-clear]')];
 const viewBtns = [...document.querySelectorAll('[data-view]')];
-const st = { q: '', cat: 'all', sort: 'newest', view: 'grid' };
+const st = { q: '', cat: 'all', sort: 'newest', view: 'list' };
 
 const params = new URLSearchParams(location.search);
-st.q = params.get('q') || '';
+if (q) st.q = params.get('q') || '';
 st.cat = chips.some((c) => c.dataset.catChip === params.get('category')) ? params.get('category') : 'all';
-if (['newest', 'popular', 'price-asc', 'price-desc', 'name'].includes(params.get('sort'))) st.sort = params.get('sort');
-if (params.get('view') === 'list') st.view = 'list';
+if (sortSel && ['newest', 'popular', 'price-asc', 'price-desc', 'name'].includes(params.get('sort'))) st.sort = params.get('sort');
+if (viewBtns.length && params.get('view') === 'grid') st.view = 'grid';
 
 const sorters = {
   newest: (a, b) => b.dataset.date.localeCompare(a.dataset.date),
@@ -41,20 +42,21 @@ function render() {
   count.textContent = n === 1 ? '1 font' : n + ' fonts';
   chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.catChip === st.cat)));
   viewBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === st.view)));
-  grid.classList.toggle('list', st.view === 'list');
+  grid.classList.toggle('grid', st.view === 'grid');
   const active = st.q || st.cat !== 'all';
   clearBtns.forEach((b) => (b.hidden = !active));
-  q.value = st.q; sortSel.value = st.sort;
+  if (q) q.value = st.q;
+  if (sortSel) sortSel.value = st.sort;
   const p = new URLSearchParams();
   if (st.q) p.set('q', st.q);
   if (st.cat !== 'all') p.set('category', st.cat);
   if (st.sort !== 'newest') p.set('sort', st.sort);
-  if (st.view === 'list') p.set('view', 'list');
+  if (st.view === 'grid') p.set('view', 'grid');
   history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
 }
-q.addEventListener('input', () => { st.q = q.value; render(); });
-sortSel.addEventListener('change', () => { st.sort = sortSel.value; render(); });
+q?.addEventListener('input', () => { st.q = q.value; render(); });
+sortSel?.addEventListener('change', () => { st.sort = sortSel.value; render(); });
 chips.forEach((c) => c.addEventListener('click', () => { st.cat = c.dataset.catChip; render(); }));
 viewBtns.forEach((b) => b.addEventListener('click', () => { st.view = b.dataset.view; render(); }));
-clearBtns.forEach((b) => b.addEventListener('click', () => { st.q = ''; st.cat = 'all'; render(); q.focus(); }));
+clearBtns.forEach((b) => b.addEventListener('click', () => { st.q = ''; st.cat = 'all'; render(); (q || chips[0])?.focus(); }));
 render();
