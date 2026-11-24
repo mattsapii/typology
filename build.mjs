@@ -270,6 +270,7 @@ ${newsletter()}`;
 }
 
 // DETAIL
+const SPECIMEN = 'Whereas disregard and contempt for human rights have resulted';
 const UP = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', LOW = 'abcdefghijklmnopqrstuvwxyz', NUM = '0123456789', PUN = '.,;:!?\'"‘’“”()[]{}@#&%*+-–—=/\\<>_$€£¥©®™';
 for (const p of products) {
   const r = report[p.slug] || {};
@@ -290,7 +291,7 @@ for (const p of products) {
   </div>
   <div class="d-tester">
   <div class="d-tools" role="region" aria-label="Specimen controls">${testerControls({ id: 'd', textLabel: `Type to preview ${p.name}`, placeholder: `Try “${site.defaultTesterText}”`, max: 240 })}</div>
-  <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(p.name)}"><span data-sp-text>${esc(p.name)}</span></div></div>
+  <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(SPECIMEN)}"><span data-sp-text>${esc(SPECIMEN)}</span></div></div>
   </div>
 
   <section class="d-section" aria-labelledby="chars-h"><h2 id="chars-h">Characters</h2>
