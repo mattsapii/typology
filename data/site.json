@@ -15,47 +15,56 @@
     {
       "name": "Desktop License",
       "price": 29,
-      "text": "For personal use on desktops when designing graphics, documents, and digital assets. Meant for individuals, freelancers and small businesses — not for mid-size or large enterprises."
+      "text": "For personal use on desktops when designing graphics, documents, and digital assets. Meant for individuals, freelancers and small businesses — not for mid-size or large enterprises.",
+      "useCase": "Designing graphics, documents or digital files on your own computer"
     },
     {
       "name": "Webfont License",
       "price": 39,
-      "text": "Use embedded webfonts to display live text on your website. Made for individuals, freelancers and small businesses — not mid-size or large companies."
+      "text": "Use embedded webfonts to display live text on your website. Made for individuals, freelancers and small businesses — not mid-size or large companies.",
+      "useCase": "Live text on your website"
     },
     {
       "name": "Social Media License",
       "price": 59,
-      "text": "For content that needs to stay on-brand everywhere it appears, whether that's a quick post, a story, or a full campaign rollout."
+      "text": "For content that needs to stay on-brand everywhere it appears, whether that's a quick post, a story, or a full campaign rollout.",
+      "useCase": "Posts, stories and campaigns on social media"
     },
     {
       "name": "Digital Ads License",
       "price": 79,
-      "text": "Use the font in digital ad campaigns across display, video, and social placements."
+      "text": "Use the font in digital ad campaigns across display, video, and social placements.",
+      "useCase": "Paid display, video or social ads"
     },
     {
       "name": "Logo License",
       "price": 99,
-      "text": "For crafting a logo intended for registration, whether it's for your brand or a specific product."
+      "text": "For crafting a logo intended for registration, whether it's for your brand or a specific product.",
+      "useCase": "A logo you plan to register as a trademark"
     },
     {
       "name": "Merchandise and Template License",
       "price": 149,
-      "text": "For commercial projects that span branding, web design, social content, and merchandise all at once."
+      "text": "For commercial projects that span branding, web design, social content, and merchandise all at once.",
+      "useCase": "Merch, templates, or branding across several channels at once"
     },
     {
       "name": "Ads and Platform License",
       "price": 169,
-      "text": "For digital products like apps and games that need the font embedded right into the build."
+      "text": "For digital products like apps and games that need the font embedded right into the build.",
+      "useCase": "An app or game with the font built in"
     },
     {
       "name": "Broadcast and Film License",
       "price": 249,
-      "text": "For creatives working in film, television, and broadcast, including motion graphics work."
+      "text": "For creatives working in film, television, and broadcast, including motion graphics work.",
+      "useCase": "Film, TV, broadcast or motion graphics"
     },
     {
       "name": "Corporate Limited License",
       "price": 899,
-      "text": "For a single named brand or sub-brand, priced once and capped in how much you can use it for social, ads, and merchandise. Any other brand, sub-brand, subsidiary, or company under the same group falls outside this license and needs to purchase separately."
+      "text": "For a single named brand or sub-brand, priced once and capped in how much you can use it for social, ads, and merchandise. Any other brand, sub-brand, subsidiary, or company under the same group falls outside this license and needs to purchase separately.",
+      "useCase": "One named brand, with capped social, ads and merch use"
     }
   ],
   "_licensesNote": "Prices are per font, in USD. The cheapest one is shown as 'From' on font cards. Edit here; build.mjs reads this list for the Licensing page and font pages."
