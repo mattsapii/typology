@@ -12,8 +12,12 @@
   "heroSlug": "lempo",
   "licenseSummary": [
     "Use the font in unlimited personal and commercial projects: branding, packaging, print, video, social media and merchandise.",
-    "Install on up to the number of computers stated at checkout for the buyer's own work.",
     "Embedding in apps, games, websites as a web font, or in products where the font can be extracted needs a separate license."
   ],
-  "heroCaption": "Set in Hegomoni Signature"
+  "heroCaption": "Set in Hegomoni Signature",
+  "license": {
+    "use": "Personal and commercial projects",
+    "included": "Logos, branding, packaging, print, video, social media and merchandise, for personal and commercial work.",
+    "separate": "Apps, games, websites using the font as a web font, and products where the font file can be extracted."
+  }
 }
