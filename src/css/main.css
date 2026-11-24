@@ -183,15 +183,8 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .faq details[open] summary::after{content:"–"}
 .faq details p{color:var(--muted);padding-bottom:1.1rem;max-width:40rem}
 
-/* newsletter + forms */
-.news{background:var(--bone);color:var(--ink);border-bottom:1px solid var(--line)}
-.news .wrap{display:grid;gap:2rem;padding-top:clamp(3rem,7vw,5rem);padding-bottom:clamp(3rem,7vw,5rem)}
+/* forms */
 @media (min-width:900px){.news .wrap{grid-template-columns:1fr 1fr;align-items:center}}
-.news h2{font-size:clamp(1.75rem,3.4vw,2.75rem)}
-.news p{color:var(--muted)}
-.news form{display:flex;flex-wrap:wrap;gap:.75rem}
-.news input{background:var(--paper);flex:1 1 14rem}
-.news label{display:block;width:100%;font-size:.875rem;color:var(--muted)}
 .form-grid{display:grid;gap:1.25rem;max-width:40rem}
 .status{font-size:.9375rem;min-height:1.4em}
 

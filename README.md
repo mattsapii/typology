@@ -35,7 +35,7 @@ Semua data ada di `data/products.json`. Tiga produk saat ini adalah **placeholde
 - Tidak ada pemrosesan pembayaran di situs ini, dan tidak ada pembelian yang dianggap sukses sebelum Gumroad mengonfirmasi.
 
 ## Yang harus Anda ganti sebelum rilis
-- `data/site.json`: `url`, `email`, `newsletterAction` (kosong = tombol Subscribe membuka email), `instagram`, `licenseSummary`
+- `data/site.json`: `url`, `email`, `instagram`, `licenseSummary`
 - `data/products.json`: seluruh produk placeholder
 - Teks `/about/`, `/faq/`, `/licensing/`, `/privacy/`, `/terms/` di `build.mjs` adalah draf umum. Periksa dan sesuaikan dengan ketentuan lisensi Anda; sebaiknya ditinjau ahli hukum.
 - Formulir kontak membuka aplikasi email pengunjung (tanpa backend). Untuk formulir sungguhan, sambungkan layanan formulir dan ubah `src/js/contact.js`.

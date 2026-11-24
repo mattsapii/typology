@@ -144,17 +144,6 @@ ${scripts.map((s) => `<script type="module" src="/js/${s}.js?v=${ver}"></script>
 const breadcrumbLD = (items) => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map(([n, u], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: SITE + u })) });
 const orgLD = { '@context': 'https://schema.org', '@type': 'Organization', name: site.name, url: SITE, logo: SITE + '/favicon.svg', description: site.tagline };
 
-function newsletter() {
-  const action = site.newsletterAction ? ` action="${esc(site.newsletterAction)}" method="post"` : '';
-  return `<section class="news" aria-labelledby="news-h"><div class="wrap">
-  <div><h2 id="news-h">Hear about new fonts first</h2><p>One email when a new font is out. Nothing else.</p></div>
-  <form data-news data-to="${esc(site.email)}"${action}>
-    <label for="news-email">Email address</label>
-    <input type="email" id="news-email" name="email" required autocomplete="email" placeholder="you@example.com">
-    <button class="btn" type="submit">Email me new fonts</button>
-  </form></div></section>`;
-}
-
 // ---------- pages ----------
 const pages = [];
 const add = (p, html) => pages.push([p, html]);
@@ -223,13 +212,12 @@ ${best.length ? `<section class="section" aria-labelledby="best-h"><div class="w
   <p>${site.name} is an independent foundry. Each typeface is drawn, spaced and kerned in-house, then checked in real words and sentences, not only in alphabets.</p>
   <p><a class="link" href="/about/">Read more about the studio</a></p></div>
 </div></section>
-
-${newsletter()}`;
+`;
 
   add('/', layout({
     title: `${site.name} | Handwritten fonts, signatures and brush scripts`,
     desc: 'Independent handwritten font foundry. Test signature fonts, brush scripts, casual handwriting and elegant scripts with your own text, then license instantly.',
-    path: '/', cur: '/', body, scripts: ['home', 'news'],
+    path: '/', cur: '/', body, scripts: ['home'],
     preload: [heroProduct.previewFontFile],
     ld: [orgLD, { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: SITE }],
   }));
@@ -259,12 +247,11 @@ ${newsletter()}`;
   <div class="cards" data-grid>${products.map((p, i) => card(p, { near: i < 2 })).join('')}</div>
   <div class="empty" data-empty hidden><h2>No fonts match</h2><p>Try a shorter name or another category. You can also clear the filters and see the whole catalog.</p><button type="button" class="btn" data-clear>Clear filters</button></div>
   <div style="height:clamp(3rem,6vw,5rem)"></div>
-</div>
-${newsletter()}`;
+</div>`;
   add('/shop/', layout({
     title: 'Handwritten fonts: shop and live tester',
     desc: 'Browse every Typology handwritten font. Type your own text and preview signature, brush script, casual, monoline, elegant and playful fonts side by side.',
-    path: '/shop/', cur: '/shop/', body, scripts: ['shop', 'news'],
+    path: '/shop/', cur: '/shop/', body, scripts: ['shop'],
     ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/']]), { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Typology fonts', itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/fonts/${p.slug}/`, name: p.name })) }],
   }));
 }
@@ -344,7 +331,7 @@ for (const p of products) {
   add(url, layout({
     title: `${p.name}: ${catName(p.category)} handwritten font`,
     desc: `${p.name} is a ${catName(p.category).toLowerCase()} handwritten font by ${site.name}. Test it with your own text, inspect every glyph, then license it for ${money(p)}.`,
-    path: url, body, scripts: ['detail', 'news'], preload: [p.previewFontFile], ogImage: p.productImage, ogType: 'product',
+    path: url, body, scripts: ['detail'], preload: [p.previewFontFile], ogImage: p.productImage, ogType: 'product',
     head: site.gumroadOverlay ? '<script src="https://gumroad.com/js/gumroad.js" async></script>' : '',
     ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/'], [p.name, url]]), {
       '@context': 'https://schema.org', '@type': 'Product', name: p.name, description: p.description, sku: p.id, category: catName(p.category),
@@ -381,8 +368,7 @@ add('/about/', layout({
 <div class="prose"><p>Each font starts as real handwriting. We draw the letters, build the connections, then spend most of the time on spacing and kerning, because a handwritten font only feels human when the rhythm between letters is right.</p>
 <p>We test every release in whole words and sentences, in the same live tester you can use on this site, so you see how a font behaves with your text before you buy.</p>
 <p>Fonts are sold directly through Gumroad. You pay once, download the files and use them under a clear license.</p>
-<p><a class="btn" href="/shop/">Explore fonts</a></p></div></div></div>${newsletter()}`,
-  scripts: ['news'],
+<p><a class="btn" href="/shop/">Explore fonts</a></p></div></div></div>`,
 }));
 
 const faqs = [
@@ -421,7 +407,7 @@ add('/privacy/', layout({
 <h2>Short version</h2><p>This website has no accounts and no advertising trackers. We do not take payments or store payment details.</p>
 <h2>What stays in your browser</h2><p>The font tester saves your last text, size, colors and alignment in your browser's local storage so they carry over between pages. This data never leaves your device. You can clear it from your browser settings.</p>
 <h2>Purchases</h2><p>When you choose Buy now, you leave this site and go to Gumroad. Gumroad collects your payment details and email address under its own privacy policy and delivers the files. We receive the sales information Gumroad shares with sellers.</p>
-<h2>Email</h2><p>If you subscribe to the newsletter or write to us, we use your email address only to reply or to send releases. You can unsubscribe at any time.</p>
+<h2>Email</h2><p>If you write to us, we use your email address only to reply.</p>
 <h2>Hosting</h2><p>The site is hosted on Cloudflare Pages, which may process standard request logs such as IP address and browser type to deliver and protect the site.</p>
 <h2>Contact</h2><p>Questions about this policy: <a href="mailto:${esc(site.email)}">${esc(site.email)}</a>.</p>${stamp}`),
 }));

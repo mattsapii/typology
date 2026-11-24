@@ -6,8 +6,6 @@
   "_emailNote": "Replace url and email with your real values before launch.",
   "gumroadOverlay": false,
   "_gumroadOverlayNote": "Set to true only after you have tested the overlay with your real Gumroad products. Direct links always remain the fallback.",
-  "newsletterAction": "",
-  "_newsletterNote": "Paste a form endpoint (Buttondown, Mailchimp embed action, etc.). If empty, the form opens an email to the address above.",
   "defaultTesterText": "Made with Love",
   "instagram": "",
   "currencySymbol": "$",
