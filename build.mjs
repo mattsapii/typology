@@ -15,6 +15,10 @@ const SITE = site.url.replace(/\/$/, '');
 const cats = catalog.categories;
 const catName = (slug) => cats.find((c) => c.slug === slug)?.name ?? slug;
 const money = (p) => `${site.currencySymbol}${p.price}`;
+const usd = (n) => `${site.currencySymbol}${n.toLocaleString('en-US')}`;
+const LIC = [...site.licenses].sort((a, b) => a.price - b.price);
+const fromPrice = (p) => `From ${money(p)}`;
+const licenseCards = (list = LIC) => `<ul class="lic-grid">${list.map((l) => `<li class="lic-card"><span class="lic-price">${usd(l.price)}</span><div><h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></div></li>`).join('')}</ul>`;
 const products = catalog.products;
 
 // ---------- validation (fail early on bad data) ----------
@@ -79,7 +83,7 @@ function card(p, { near = false } = {}) {
   return `<article class="card" data-card data-name="${esc(p.name.toLowerCase())}" data-cat="${p.category}" data-price="${p.price}" data-date="${p.releaseDate}" data-pop="${p.popularity ?? 0}">
   <header class="card-head"><h3><a href="/fonts/${p.slug}/">${esc(p.name)}</a></h3><span class="cat">${esc(catName(p.category))}</span></header>
   <div class="specimen${near ? ' is-near' : ''}" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(p.name)}" ><span data-sp-text>${esc(p.name)}</span></div>
-  <footer class="card-foot"><span class="price">${money(p)}</span><a class="link" href="/fonts/${p.slug}/" aria-label="View details for ${esc(p.name)}">View details</a></footer>
+  <footer class="card-foot"><span class="price">${fromPrice(p)}</span><a class="link" href="/fonts/${p.slug}/" aria-label="View details for ${esc(p.name)}">View details</a></footer>
 </article>`;
 }
 
@@ -87,7 +91,7 @@ function fontRow(p, { near = false } = {}) {
   return `<article class="frow" data-card data-cat="${p.category}">
   <header class="frow-head">
     <div class="frow-name"><h3><a class="frow-link" href="/fonts/${p.slug}/">${esc(p.name)}</a></h3><span class="badge">${esc(catName(p.category))}</span></div>
-    <div class="frow-buy"><span class="price">${money(p)}</span><a class="link" href="/fonts/${p.slug}/" aria-label="Details for ${esc(p.name)}">Details</a><a class="btn sm" href="${esc(p.gumroadUrl)}" target="_blank" rel="noopener">Buy ${esc(p.name)}<span class="sr"> on Gumroad (opens in a new tab)</span></a></div>
+    <div class="frow-buy"><span class="price">${fromPrice(p)}</span><a class="link" href="/fonts/${p.slug}/" aria-label="Details for ${esc(p.name)}">Details</a><a class="btn sm" href="${esc(p.gumroadUrl)}" target="_blank" rel="noopener">Buy ${esc(p.name)}<span class="sr"> on Gumroad (opens in a new tab)</span></a></div>
   </header>
   <div class="specimen${near ? ' is-near' : ''}" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(p.name)}"><span data-sp-text>${esc(p.name)}</span></div>
 </article>`;
@@ -273,7 +277,6 @@ for (const p of products) {
   const presets = [['Pangram', SPECIMEN], ['Brand name', site.presetBrand || 'Maple & Moss Bakery'], ['Quote', 'Every line has a pulse'], ['A to Z', 'ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz']];
   const released = new Date(p.releaseDate + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
   const formats = (p.formats || ['OTF', 'TTF']).filter((f) => f !== 'WOFF2');
-  const lic = site.license || {};
   const body = `
 <div class="wrap" style="--ff:'${esc(p.previewFont)}'">
   <div class="fp-top">
@@ -284,11 +287,11 @@ for (const p of products) {
       <p class="fp-desc">${esc(p.description)}</p>
     </div>
     <aside class="buy-panel" aria-label="Buy ${esc(p.name)}">
-      <p class="bp-price"><span class="price">${money(p)}</span><span class="muted">one-time</span></p>
-      <dl class="bp-rows"><dt>File</dt><dd>${esc(formats.join(', '))}, desktop install</dd><dt>Characters</dt><dd>${glyphCount} glyphs, ${esc(p.languageSupport.join(', '))}</dd><dt>Use</dt><dd>${esc(lic.use || 'Personal and commercial projects')}</dd></dl>
+      <p class="bp-price"><span class="muted">From</span><span class="price">${money(p)}</span><span class="muted">${esc(LIC[0].name)}</span></p>
+      <dl class="bp-rows"><dt>File</dt><dd>${esc(formats.join(', '))}, desktop install</dd><dt>Characters</dt><dd>${glyphCount} glyphs, ${esc(p.languageSupport.join(', '))}</dd><dt>Licenses</dt><dd>${LIC.length} options, ${usd(LIC[0].price)} to ${usd(LIC[LIC.length - 1].price)}</dd></dl>
       ${buy(`Buy ${esc(p.name)}`).replace('class="btn lg', 'class="btn block')}
-      <p class="small muted">Pay once on Gumroad. Download the files right after checkout.</p>
-      <a class="link small" href="#lic-h">Read the license</a>
+      <p class="small muted">Choose your license on the Gumroad page. Pay once and download the files right after checkout.</p>
+      <a class="link small" href="#lic-h">Compare licenses</a>
     </aside>
   </div>
 
@@ -324,10 +327,10 @@ for (const p of products) {
         <dt>Released</dt><dd><time datetime="${p.releaseDate}">${released}</time></dd>
       </dl>
     </section>
-    <section aria-labelledby="lic-h"><h2 id="lic-h">License</h2>
-      <h3 class="lic-h">Included</h3><p class="muted">${esc(lic.included || '')}</p>
-      <h3 class="lic-h">Needs a separate license</h3><p class="muted">${esc(lic.separate || '')}</p>
-      <p><a class="link" href="/licensing/">Read the full licensing terms</a></p>
+    <section aria-labelledby="lic-h"><h2 id="lic-h">Licenses</h2>
+      <p class="muted">Pick the license that matches how you will use ${esc(p.name)}. Prices are one-time, per font.</p>
+      <dl class="lic-mini">${LIC.map((l) => `<dt>${esc(l.name)}</dt><dd>${usd(l.price)}</dd>`).join('')}</dl>
+      <p><a class="link" href="/licensing/">What each license covers</a></p>
     </section>
   </div>
 
@@ -340,13 +343,13 @@ for (const p of products) {
   const url = `/fonts/${p.slug}/`;
   add(url, layout({
     title: `${p.name}: ${catName(p.category)} handwritten font`,
-    desc: `${p.name} is a ${catName(p.category).toLowerCase()} handwritten font by ${site.name}. Test it with your own text, inspect every glyph, then license it for ${money(p)}.`,
+    desc: `${p.name} is a ${catName(p.category).toLowerCase()} handwritten font by ${site.name}. Test it with your own text, inspect every glyph, then license it from ${money(p)}.`,
     path: url, body, scripts: ['detail'], preload: [p.previewFontFile], ogImage: p.productImage, ogType: 'product',
     head: site.gumroadOverlay ? '<script src="https://gumroad.com/js/gumroad.js" async></script>' : '',
     ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/'], [p.name, url]]), {
       '@context': 'https://schema.org', '@type': 'Product', name: p.name, description: p.description, sku: p.id, category: catName(p.category),
       image: [SITE + p.productImage, ...p.specimenImages.map((i) => SITE + i.src)], brand: { '@type': 'Brand', name: site.name },
-      offers: { '@type': 'Offer', price: p.price, priceCurrency: p.currency || 'USD', availability: 'https://schema.org/InStock', url: p.gumroadUrl, itemCondition: 'https://schema.org/NewCondition' },
+      offers: { '@type': 'AggregateOffer', lowPrice: p.price, highPrice: LIC[LIC.length - 1].price, offerCount: LIC.length, priceCurrency: p.currency || 'USD', availability: 'https://schema.org/InStock', url: p.gumroadUrl },
     }],
   }));
 }
@@ -356,18 +359,23 @@ const prose = (title, lead, inner) => `<div class="wrap page-title"><h1>${title}
 const stamp = `<p class="stamp">Last updated ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.</p>`;
 
 add('/licensing/', layout({
-  title: 'Font licensing', desc: `How ${site.name} font licenses work: what you can do with a purchased font, and when you need an extended license.`, path: '/licensing/', cur: '/licensing/',
+  title: 'Font licenses and pricing', desc: `${site.name} font licenses from ${usd(LIC[0].price)}: desktop, webfont, social media, ads, logo, merchandise, apps, broadcast and corporate use.`, path: '/licensing/', cur: '/licensing/',
   ld: [breadcrumbLD([['Home', '/'], ['Licensing', '/licensing/']])],
-  body: prose('Licensing', 'Plain terms for using a font you have bought.', `
-<h2>What every purchase includes</h2>
-<ul>${site.licenseSummary.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
-<h2>What is not allowed</h2>
-<ul><li>Sharing, reselling or redistributing the font files.</li><li>Uploading the font to a public font library or a font-generator service.</li><li>Editing the files and selling the result as a new font.</li></ul>
-<h2>Need something different?</h2>
-<p>If you need broader rights, such as embedding the font in an app, a game or a product you sell, <a href="/contact/">contact us</a> and describe the use.</p>
-<h2>Web previews</h2>
-<p>The previews on this site are for testing only. They do not grant any right to use the font elsewhere.</p>
-${stamp}`),
+  body: `<div class="wrap page-title"><h1>Licensing</h1><p>Every ${site.name} font has the same licenses. Pick the one that matches how you will use the font. Prices are one-time, per font, in US dollars.</p></div>
+<div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)">
+  ${licenseCards()}
+  <div class="prose lic-rules">
+    <h2>Every license</h2>
+    <ul><li>Is a one-time payment for one font. There is no subscription.</li><li>Covers the use described on its card. Uses outside it need another license.</li></ul>
+    <h2>What is not allowed</h2>
+    <ul><li>Sharing, reselling or redistributing the font files.</li><li>Uploading the font to a public font library or a font-generator service.</li><li>Editing the files and selling the result as a new font.</li></ul>
+    <h2>Not sure which one you need?</h2>
+    <p><a href="/contact/">Contact us</a> and describe the project. We will tell you which license fits.</p>
+    <h2>Web previews</h2>
+    <p>The previews on this site are for testing only. They do not grant any right to use the font elsewhere.</p>
+    ${stamp}
+  </div>
+</div>`,
 }));
 
 add('/about/', layout({
@@ -382,10 +390,10 @@ add('/about/', layout({
 }));
 
 const faqs = [
-  ['How do I buy a font?', 'Open a font page and choose Buy now. You go to the matching Gumroad checkout, pay there and download the files straight away.'],
+  ['How do I buy a font?', 'Open a font page and choose Buy. On the Gumroad page, pick the license you need, pay there and download the files straight away.'],
   ['What do I receive after purchase?', 'The font files in the formats listed on each font page, ready to install on Windows, macOS and Linux.'],
   ['Are the previews the real fonts?', 'Yes. The tester uses a web version of each font file, so letter shapes and spacing match what you download.'],
-  ['Can I use the fonts on a website or in an app?', 'Check the licensing page for what a standard purchase covers. For app, game or product embedding, contact us and we will help.'],
+  ['Can I use the fonts on a website or in an app?', 'Yes, with the right license. A website needs the Webfont License. Apps and games need the Ads and Platform License. The licensing page lists every option and price.'],
   ['Do you offer refunds?', 'Refunds are handled through Gumroad. If something is wrong with your files, contact us and we will fix it.'],
   ['A character is missing. What now?', 'Look at the glyph grid on the font page before you buy. If you need a character that is missing, contact us.'],
   ['Where is my receipt or download link?', 'Gumroad emails both after payment. You can also use the link in the receipt to download again.'],

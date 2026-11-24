@@ -10,14 +10,53 @@
   "instagram": "",
   "currencySymbol": "$",
   "heroSlug": "lempo",
-  "licenseSummary": [
-    "Use the font in unlimited personal and commercial projects: branding, packaging, print, video, social media and merchandise.",
-    "Embedding in apps, games, websites as a web font, or in products where the font can be extracted needs a separate license."
-  ],
   "heroCaption": "Set in Hegomoni Signature",
-  "license": {
-    "use": "Personal and commercial projects",
-    "included": "Logos, branding, packaging, print, video, social media and merchandise, for personal and commercial work.",
-    "separate": "Apps, games, websites using the font as a web font, and products where the font file can be extracted."
-  }
+  "licenses": [
+    {
+      "name": "Desktop License",
+      "price": 29,
+      "text": "For personal use on desktops when designing graphics, documents, and digital assets. Meant for individuals, freelancers and small businesses — not for mid-size or large enterprises."
+    },
+    {
+      "name": "Webfont License",
+      "price": 39,
+      "text": "Use embedded webfonts to display live text on your website. Made for individuals, freelancers and small businesses — not mid-size or large companies."
+    },
+    {
+      "name": "Social Media License",
+      "price": 59,
+      "text": "For content that needs to stay on-brand everywhere it appears, whether that's a quick post, a story, or a full campaign rollout."
+    },
+    {
+      "name": "Digital Ads License",
+      "price": 79,
+      "text": "Use the font in digital ad campaigns across display, video, and social placements."
+    },
+    {
+      "name": "Logo License",
+      "price": 99,
+      "text": "For crafting a logo intended for registration, whether it's for your brand or a specific product."
+    },
+    {
+      "name": "Merchandise and Template License",
+      "price": 149,
+      "text": "For commercial projects that span branding, web design, social content, and merchandise all at once."
+    },
+    {
+      "name": "Ads and Platform License",
+      "price": 169,
+      "text": "For digital products like apps and games that need the font embedded right into the build."
+    },
+    {
+      "name": "Broadcast and Film License",
+      "price": 249,
+      "text": "For creatives working in film, television, and broadcast, including motion graphics work."
+    },
+    {
+      "name": "Corporate Limited License",
+      "price": 899,
+      "text": "For a single named brand or sub-brand, priced once and capped in how much you can use it for social, ads, and merchandise. Any other brand, sub-brand, subsidiary, or company under the same group falls outside this license and needs to purchase separately."
+    }
+  ],
+  "_licensesNote": "Prices are per font, in USD. The cheapest one is shown as 'From' on font cards. Edit here; build.mjs reads this list for the Licensing page and font pages."
 }
