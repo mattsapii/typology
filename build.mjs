@@ -342,7 +342,7 @@ for (const p of products) {
   </div>
 
   <section class="related" aria-labelledby="rel-h">
-    ${related.length ? `<h2 id="rel-h" class="d-h2">Related fonts</h2><div class="cards">${related.map((x) => card(x)).join('')}</div>` : `<h2 id="rel-h" class="sr">More fonts</h2><div class="more-row"><p>${esc(p.name)} is our first release. More handwritten fonts are on the way.</p><a class="link" href="/shop/">Browse all fonts</a></div>`}
+    ${related.length ? `<h2 id="rel-h" class="d-h2">Related fonts</h2><div class="frows">${related.map((x) => fontRow(x)).join('')}</div>` : `<h2 id="rel-h" class="sr">More fonts</h2><div class="more-row"><p>${esc(p.name)} is our first release. More handwritten fonts are on the way.</p><a class="link" href="/shop/">Browse all fonts</a></div>`}
   </section>
 </div>
 `;
