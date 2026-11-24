@@ -371,3 +371,5 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .shop .soon-row{margin-top:1.25rem}
 .fp-desc p{margin:0 0 .8em}
 .fp-desc p:last-child{margin-bottom:0}
+.related{padding-bottom:clamp(4rem,8vw,6.5rem)}
+.related .more-row{padding-bottom:1rem}
