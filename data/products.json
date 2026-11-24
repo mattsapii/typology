@@ -81,13 +81,13 @@
           "imageAlt": "Lempo on Gembul burger packaging: burger box, cola cup, fries sleeve and sauce sachets on a steel tray"
         },
         {
-          "title": "Shop signs",
-          "text": "Hanging boards, storefronts and menu signs.",
+          "title": "Storefronts",
+          "text": "Shop fascias, hanging signs and window lettering.",
           "words": "gembul",
-          "bg": "#DCE6D2",
-          "fg": "#1C1B18",
-          "image": "/images/mockups/lempo-shop-sign.webp",
-          "imageAlt": "Lempo on a hanging iron shop sign reading gembul burger club, big bites, happy belly"
+          "bg": "#C8553D",
+          "fg": "#F1EDE3",
+          "image": "/images/mockups/lempo-storefront.webp",
+          "imageAlt": "Lempo on a shopfront: a large orange fascia reading gembul burger club and a round hanging sign reading big bites, happy belly"
         },
         {
           "title": "Tote bags and merch",
