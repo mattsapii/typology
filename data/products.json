@@ -72,11 +72,13 @@
       "seoDescription": "Lempo is a puffy bubble display font for café signs, kids' book covers, stickers and sale banners. Test it with your own words, then license it from $29.",
       "bestFor": [
         {
-          "title": "Café signs",
-          "text": "Menu boards, chalk signs and window decals.",
-          "words": "Fresh buns daily",
-          "bg": "#1C1B18",
-          "fg": "#F1EDE3"
+          "title": "Food packaging",
+          "text": "Burger boxes, cups, fries sleeves and sauce sachets.",
+          "words": "big bites, happy belly!",
+          "bg": "#C8553D",
+          "fg": "#F1EDE3",
+          "image": "/images/mockups/lempo-food-packaging.webp",
+          "imageAlt": "Lempo on Gembul burger packaging: burger box, cola cup, fries sleeve and sauce sachets on a steel tray"
         },
         {
           "title": "Stickers and labels",
