@@ -264,62 +264,76 @@ for (const p of products) {
   const glyphCount = r.glyphCount ?? gInfo.count ?? glyphs.length;
   const buyAttrs = site.gumroadOverlay ? 'class="btn lg gumroad-button"' : 'class="btn lg"';
   const buy = (label = 'Buy now') => `<a ${buyAttrs} href="${esc(p.gumroadUrl)}" target="_blank" rel="noopener" data-buy>${label}<span class="sr"> ${esc(p.name)} on Gumroad (opens in a new tab)</span></a>`;
+  const kindOf = (g) => (/[A-Z]/.test(g) ? 'upper' : /[a-z]/.test(g) ? 'lower' : /[0-9]/.test(g) ? 'num' : 'punct');
+  const kindName = { upper: 'Uppercase', lower: 'Lowercase', num: 'Number', punct: 'Punctuation and symbols' };
+  const order = { upper: 0, lower: 1, num: 2, punct: 3 };
+  glyphs.sort((a, z) => order[kindOf(a)] - order[kindOf(z)]);
+  const firstGlyph = glyphs.find((g) => /[A-Z]/.test(g)) || glyphs[0];
+  const tabs = [['all', `All ${glyphCount}`], ['upper', 'Uppercase'], ['lower', 'Lowercase'], ['num', 'Numbers'], ['punct', 'Punctuation']];
+  const presets = [['Pangram', SPECIMEN], ['Brand name', site.presetBrand || 'Maple & Moss Bakery'], ['Quote', 'Every line has a pulse'], ['A to Z', 'ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz']];
+  const released = new Date(p.releaseDate + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  const formats = (p.formats || ['OTF', 'TTF']).filter((f) => f !== 'WOFF2');
+  const lic = site.license || {};
   const body = `
 <div class="wrap" style="--ff:'${esc(p.previewFont)}'">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/shop/">Fonts</a> / <a href="/shop/?category=${p.category}">${esc(catName(p.category))}</a> / <span aria-current="page">${esc(p.name)}</span></nav>
-  ${p.placeholder ? `<p class="placeholder-note" style="margin-top:1rem"><strong>Placeholder product.</strong> Replace this entry in <code>data/products.json</code> with a real font, price and Gumroad link.</p>` : ''}
-  <div class="d-head">
-    <div><h1>${esc(p.name)}</h1><p class="meta">${esc(catName(p.category))} · ${p.fontStyles.length} ${p.fontStyles.length === 1 ? 'style' : 'styles'} · ${glyphCount} glyphs</p></div>
-    <div class="d-buy"><span class="price">${money(p)}</span>${buy()}</div>
-  </div>
-  <div class="d-tester">
-  <div class="d-tools" role="region" aria-label="Specimen controls">${testerControls({ id: 'd', textLabel: `Type to preview ${p.name}`, placeholder: `Try “${site.defaultTesterText}”`, max: 240 })}</div>
-  <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(SPECIMEN)}"><span data-sp-text>${esc(SPECIMEN)}</span></div></div>
+  <div class="fp-top">
+    <div class="fp-title">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/shop/">Fonts</a> / <a href="/shop/?category=${p.category}">${esc(catName(p.category))}</a> / <span aria-current="page">${esc(p.name)}</span></nav>
+      <h1>${esc(p.name)}</h1>
+      <ul class="badges" aria-label="Font facts"><li class="badge">${esc(catName(p.category))}</li><li class="badge">${p.fontStyles.length} ${p.fontStyles.length === 1 ? 'style' : 'styles'}</li><li class="badge">${glyphCount} glyphs</li>${formats.map((f) => `<li class="badge">${esc(f)}</li>`).join('')}</ul>
+      <p class="fp-desc">${esc(p.description)}</p>
+    </div>
+    <aside class="buy-panel" aria-label="Buy ${esc(p.name)}">
+      <p class="bp-price"><span class="price">${money(p)}</span><span class="muted">one-time</span></p>
+      <dl class="bp-rows"><dt>File</dt><dd>${esc(formats.join(', '))}, desktop install</dd><dt>Characters</dt><dd>${glyphCount} glyphs, ${esc(p.languageSupport.join(', '))}</dd><dt>Use</dt><dd>${esc(lic.use || 'Personal and commercial projects')}</dd></dl>
+      ${buy(`Buy ${esc(p.name)}`).replace('class="btn lg', 'class="btn block')}
+      <p class="small muted">Pay once on Gumroad. Download the files right after checkout.</p>
+      <a class="link small" href="#lic-h">Read the license</a>
+    </aside>
   </div>
 
-  <section class="d-section" aria-labelledby="chars-h"><h2 id="chars-h">Characters</h2>
-    <div class="glyph-row">${UP}</div>
-    <div class="glyph-row">${LOW}</div>
-  </section>
-  <section class="d-section" aria-labelledby="num-h"><h2 id="num-h">Numbers and punctuation</h2>
-    <div class="glyph-row">${esc(NUM)}</div>
-    <div class="glyph-row">${esc(PUN)}</div>
-  </section>
-  <section class="d-section" aria-labelledby="gl-h"><h2 id="gl-h">Available glyphs and alternates</h2>
-    <p class="hint">${glyphCount} glyphs in the web preview${r.alternateCount ? `, including ${r.alternateCount} alternate forms` : ''}. Select a character to inspect it.${gInfo.note ? ' ' + esc(gInfo.note) : ''}</p>
-    <div class="glyph-layout">
-      <div class="glyph-grid" role="group" aria-label="All characters in ${esc(p.name)}">${glyphs.map((g) => `<button type="button" data-glyph="${esc(g)}" aria-pressed="false" aria-label="Character ${esc(g)}">${esc(g)}</button>`).join('')}</div>
-      <div class="glyph-view" aria-live="polite"><div><div class="big" data-glyph-big aria-hidden="true">${esc(glyphs.find((g) => /[A-Za-z]/.test(g)) || glyphs[0])}</div><div class="code" data-glyph-code>Select a character</div></div></div>
+  <div class="d-tester">
+    <div class="d-tools" role="region" aria-label="Specimen controls">${testerControls({ id: 'd', textLabel: `Type to preview ${p.name}`, placeholder: 'Type a name, a quote or a date', max: 240 })}
+      <div class="presets" role="group" aria-label="Sample text"><span class="small muted">Try:</span>${presets.map(([n, t], k) => `<button type="button" class="chip sm" data-preset="${esc(t)}" aria-pressed="${k === 0}">${esc(n)}</button>`).join('')}</div>
     </div>
-    ${gInfo.alternates ? `<p class="muted" style="margin-top:1rem">${esc(gInfo.alternates)}</p>` : ''}
+    <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(SPECIMEN)}"><span data-sp-text>${esc(SPECIMEN)}</span></div></div>
+  </div>
+
+  <section class="d-section" aria-labelledby="chars-h">
+    <div class="sec-head stack"><h2 id="chars-h">Characters</h2><p>${glyphCount} glyphs. Select one to see it large.</p></div>
+    <div class="tabs" role="tablist" aria-label="Character groups">${tabs.map(([k, l], n) => `<button type="button" role="tab" data-tab="${k}" aria-selected="${n === 0}">${esc(l)}</button>`).join('')}</div>
+    <div class="glyph-layout">
+      <div class="glyph-grid" role="group" aria-label="Characters in ${esc(p.name)}">${glyphs.map((g) => `<button type="button" data-glyph="${esc(g)}" data-kind="${kindOf(g)}" aria-pressed="${g === firstGlyph}" aria-label="${kindName[kindOf(g)]} ${esc(g)}">${esc(g)}</button>`).join('')}</div>
+      <div class="glyph-view" aria-live="polite"><div><div class="big" data-glyph-big aria-hidden="true">${esc(firstGlyph)}</div><div class="code" data-glyph-code>${kindName[kindOf(firstGlyph)]} ${esc(firstGlyph)}&nbsp;&nbsp; U+${firstGlyph.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}</div></div></div>
+    </div>
   </section>
-  <section class="d-section" aria-labelledby="ot-h"><h2 id="ot-h">OpenType features</h2>
-    ${feats.length ? `<p class="hint">Switch features on and off and watch the specimen above change. Features apply only where the font file supports them.</p>
-    <ul class="feat-list">${feats.map((f) => f.toggle ? `<li><label><input type="checkbox" data-feature="${f.tag}"${['liga', 'calt'].includes(f.tag) ? ' checked' : ''}><span>${esc(f.label)}</span><code>${f.tag}</code></label></li>` : `<li><label style="cursor:default"><span style="width:1.25rem"></span><span>${esc(f.label)}</span><code>${f.tag}</code></label></li>`).join('')}</ul>`
-      : `<p class="muted" style="max-width:36rem">This preview file contains no optional OpenType features. Letters connect and kern by default.</p>`}
+
+  ${feats.some((f) => f.toggle) ? `<section class="d-section" aria-labelledby="ot-h"><h2 id="ot-h">OpenType features</h2>
+    <p class="hint">Switch features on and off and watch the specimen above change.</p>
+    <ul class="feat-list">${feats.filter((f) => f.toggle).map((f) => `<li><label><input type="checkbox" data-feature="${f.tag}"${['liga', 'calt'].includes(f.tag) ? ' checked' : ''}><span>${esc(f.label)}</span><code>${f.tag}</code></label></li>`).join('')}</ul>
+  </section>` : ''}
+
+  <div class="d-section fp-two">
+    <section aria-labelledby="spec-h"><h2 id="spec-h">Specifications</h2>
+      <dl class="specs">
+        <dt>Category</dt><dd>${esc(catName(p.category))}</dd>
+        <dt>Styles</dt><dd>${esc(p.fontStyles.join(', '))}</dd>
+        <dt>Glyphs</dt><dd>${glyphCount}</dd>
+        <dt>Languages</dt><dd>${esc(p.languageSupport.join(', '))}</dd>
+        <dt>File format</dt><dd>${esc(formats.join(', '))}</dd>
+        <dt>Released</dt><dd><time datetime="${p.releaseDate}">${released}</time></dd>
+      </dl>
+    </section>
+    <section aria-labelledby="lic-h"><h2 id="lic-h">License</h2>
+      <h3 class="lic-h">Included</h3><p class="muted">${esc(lic.included || '')}</p>
+      <h3 class="lic-h">Needs a separate license</h3><p class="muted">${esc(lic.separate || '')}</p>
+      <p><a class="link" href="/licensing/">Read the full licensing terms</a></p>
+    </section>
+  </div>
+
+  <section class="related" aria-labelledby="rel-h">
+    ${related.length ? `<h2 id="rel-h" class="d-h2">Related fonts</h2><div class="cards">${related.map((x) => card(x)).join('')}</div>` : `<h2 id="rel-h" class="sr">More fonts</h2><div class="more-row"><p>${esc(p.name)} is our first release. More handwritten fonts are on the way.</p><a class="link" href="/shop/">Browse all fonts</a></div>`}
   </section>
-  <section class="d-section" aria-labelledby="spec-h"><h2 id="spec-h">Font specifications</h2>
-    <dl class="specs">
-      <dt>Category</dt><dd>${esc(catName(p.category))}</dd>
-      <dt>Styles</dt><dd>${esc(p.fontStyles.join(', '))}</dd>
-      <dt>Glyphs</dt><dd>${glyphCount}</dd>
-      <dt>Languages</dt><dd>${esc(p.languageSupport.join(', '))}</dd>
-      <dt>File formats</dt><dd>${esc((p.formats || ['OTF', 'TTF']).join(', '))}</dd>
-      <dt>Released</dt><dd><time datetime="${p.releaseDate}">${new Date(p.releaseDate + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time></dd>
-    </dl>
-    <p class="hint" style="margin-top:1rem">${esc(p.description)}</p>
-  </section>
-  <section class="d-section" aria-labelledby="lic-h"><h2 id="lic-h">License</h2>
-    <ul class="prose"><li>${site.licenseSummary.map(esc).join('</li><li>')}</li></ul>
-    <p><a class="link" href="/licensing/">Read the full licensing terms</a></p>
-  </section>
-  <section class="d-section" aria-labelledby="buy-h"><h2 id="buy-h">Pricing and purchase</h2>
-    <div class="price-box"><div><div class="price">${money(p)}</div><p class="muted" style="margin:.25rem 0 0">Pay once on Gumroad. Download the files right after checkout.</p></div>${buy(`Buy ${esc(p.name)}`)}</div>
-  </section>
-  <section class="d-section related" aria-labelledby="rel-h"><h2 id="rel-h">${related.length ? 'Related fonts' : 'More fonts'}</h2>
-    ${related.length ? `<div class="cards">${related.map((x) => card(x)).join('')}</div>` : `<div class="soon-row"><p>${esc(p.name)} is our first release. More handwritten fonts are on the way.</p><a class="link" href="/shop/">Browse all fonts</a></div>`}
-  </section>
-  <div style="height:3rem"></div>
 </div>
 `;
 
