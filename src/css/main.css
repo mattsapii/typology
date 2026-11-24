@@ -292,3 +292,16 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .about-one .muted{max-width:42rem;font-size:1.0625rem}
 @media (max-width:640px){.frow-head{padding:1rem 1rem 0}.frow .specimen{padding:.15em 1rem .35em}.frow-buy{width:100%;justify-content:space-between}}
 @media (min-width:1100px){.tester{grid-template-columns:repeat(4,minmax(0,1fr)) auto}.d-tools .tester,.preview-panel .tester{grid-template-columns:repeat(4,minmax(0,1fr)) auto}}
+
+/* Tester background colours the whole card, not just the specimen strip */
+.frow,.card{background:var(--sp-bg);transition:background .15s,color .15s}
+.frow .specimen,.card .specimen{background:transparent}
+[data-sp-dark] .frow,[data-sp-dark] .card{color:var(--on-ink);border-color:#4A4840}
+[data-sp-dark] .frow:hover{border-color:var(--on-ink)}
+[data-sp-dark] .frow .badge,[data-sp-dark] .card .cat{background:rgba(242,238,227,.14);color:#D9D3C2}
+[data-sp-dark] .card .cat{background:none}
+[data-sp-dark] .frow a,[data-sp-dark] .card a{color:var(--on-ink)}
+[data-sp-dark] .frow .btn,[data-sp-dark] .card .btn{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink)}
+[data-sp-dark] .frow .btn:hover{background:var(--olive-soft);border-color:var(--olive-soft);color:var(--ink)}
+[data-sp-dark] .card .card-foot{border-top-color:#4A4840}
+[data-sp-dark] .frow :focus-visible,[data-sp-dark] .card :focus-visible{outline-color:var(--on-ink)}
