@@ -345,3 +345,17 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .glyph-grid{background:transparent;gap:0;border:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
 .glyph-grid button{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
 @media (min-width:900px){.glyph-grid{grid-template-columns:repeat(8,1fr)}}
+
+/* ---------- License tiers ---------- */
+.lic-grid{list-style:none;margin:0 0 3rem;padding:0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,26rem),1fr))}
+.lic-card{display:flex;gap:1.25rem;align-items:flex-start;border:1px solid var(--ink);padding:1.25rem 1.5rem;background:var(--paper)}
+.lic-price{flex:none;display:inline-flex;align-items:center;justify-content:center;min-width:5.5rem;padding:.45rem 1rem;border:1px solid var(--ink);border-radius:999px;font-size:1.125rem;font-variant-numeric:tabular-nums}
+.lic-card h3{font-size:1.0625rem;font-weight:600;letter-spacing:-.01em;margin:.35rem 0 .35rem}
+.lic-card p{margin:0;color:var(--muted);line-height:1.5}
+.lic-card:last-child{background:var(--bone)}
+.lic-rules{max-width:46rem}
+.lic-mini{display:grid;grid-template-columns:1fr auto;margin:0 0 1rem;border-top:1px solid var(--ink)}
+.lic-mini dt,.lic-mini dd{margin:0;padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.9375rem}
+.lic-mini dd{text-align:right;font-variant-numeric:tabular-nums}
+.bp-price{flex-wrap:wrap}
+@media (max-width:520px){.lic-card{flex-direction:column;gap:.75rem}}
