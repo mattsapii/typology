@@ -18,7 +18,8 @@ const money = (p) => `${site.currencySymbol}${p.price}`;
 const usd = (n) => `${site.currencySymbol}${n.toLocaleString('en-US')}`;
 const LIC = [...site.licenses].sort((a, b) => a.price - b.price);
 const fromPrice = (p) => `From ${money(p)}`;
-const licenseCards = (list = LIC) => `<ul class="lic-grid">${list.map((l) => `<li class="lic-card"><span class="lic-price">${usd(l.price)}</span><div><h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></div></li>`).join('')}</ul>`;
+const licSlug = (l) => 'lic-' + l.name.toLowerCase().replace(/ license$/, '').replace(/[^a-z]+/g, '-');
+const licenseCards = (list = LIC) => `<ul class="lic-grid">${list.map((l) => `<li class="lic-card" id="${licSlug(l)}"><span class="lic-price">${usd(l.price)}</span><div><h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></div></li>`).join('')}</ul>`;
 const products = catalog.products;
 
 // ---------- validation (fail early on bad data) ----------
@@ -369,19 +370,24 @@ const stamp = `<p class="stamp">Last updated ${new Date().toLocaleDateString('en
 add('/licensing/', layout({
   title: 'Font licenses and pricing', desc: `${site.name} font licenses from ${usd(LIC[0].price)}: desktop, webfont, social media, ads, logo, merchandise, apps, broadcast and corporate use.`, path: '/licensing/', cur: '/licensing/',
   ld: [breadcrumbLD([['Home', '/'], ['Licensing', '/licensing/']])],
-  body: `<div class="wrap page-title"><h1>Licensing</h1><p>Every ${site.name} font has the same licenses. Pick the one that matches how you will use the font. Prices are one-time, per font, in US dollars.</p></div>
+  body: `<div class="wrap page-title"><h1>Pick the license for how you'll use the font</h1><p>Every ${site.name} font has the same nine licenses. You pay once per font, in US dollars, and choose the license on the Gumroad checkout page.</p></div>
 <div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)">
-  <h2 class="sr">Licenses and prices</h2>
+  <section class="lic-finder" aria-labelledby="find-h">
+    <h2 id="find-h">Find your license</h2>
+    <table><thead><tr><th scope="col">You want to use the font for</th><th scope="col">License</th><th scope="col">Price</th></tr></thead>
+    <tbody>${LIC.map((l) => `<tr><td>${esc(l.useCase)}</td><td><a href="#${licSlug(l)}">${esc(l.name.replace(/ License$/, ''))}</a></td><td>${usd(l.price)}</td></tr>`).join('')}</tbody></table>
+  </section>
+  <h2 class="lic-h2">What each license covers</h2>
   ${licenseCards()}
   <div class="prose lic-rules">
-    <h2>Every license</h2>
-    <ul><li>Is a one-time payment for one font. There is no subscription.</li><li>Covers the use described on its card. Uses outside it need another license.</li></ul>
-    <h2>What is not allowed</h2>
-    <ul><li>Sharing, reselling or redistributing the font files.</li><li>Uploading the font to a public font library or a font-generator service.</li><li>Editing the files and selling the result as a new font.</li></ul>
-    <h2>Not sure which one you need?</h2>
-    <p><a href="/contact/">Contact us</a> and describe the project. We will tell you which license fits.</p>
-    <h2>Web previews</h2>
-    <p>The previews on this site are for testing only. They do not grant any right to use the font elsewhere.</p>
+    <h2>How licenses work</h2>
+    <ul><li>One payment per font. No subscription and no renewals.</li><li>A license covers only the use on its card. A second kind of use needs a second license.</li></ul>
+    <h2>What no license allows</h2>
+    <ul><li>Sharing, reselling or giving away the font files.</li><li>Uploading the font to a public font library or a font-generator service.</li><li>Editing the files and selling the result as a new font.</li></ul>
+    <h2>Not sure which one fits?</h2>
+    <p>Tell us what you are making and where it will appear. We will reply with the license you need. <a href="/contact/">Ask which license fits</a></p>
+    <h2>Previews on this site</h2>
+    <p>The live previews are for testing only. They do not give you the right to use the font anywhere else.</p>
     ${stamp}
   </div>
 </div>`,

@@ -403,3 +403,15 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 /* Borders: --rule is ink in light mode, a soft line in dark mode; focus and hover return to full ink */
 input:focus,select:focus,textarea:focus{border-color:var(--ink)}
 .chip:hover,.seg:hover{border-color:var(--ink)}
+
+/* License finder */
+.lic-finder{margin:0 0 3.5rem}
+.lic-finder h2,.lic-h2{font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:1.25rem}
+.lic-finder table{width:100%;border-collapse:collapse;font-size:1rem}
+.lic-finder th{text-align:left;font-weight:500;color:var(--muted);font-size:.875rem;padding:.6rem 1rem .6rem 0;border-bottom:1px solid var(--rule)}
+.lic-finder td{padding:.8rem 1rem .8rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+.lic-finder td:last-child,.lic-finder th:last-child{text-align:right;padding-right:0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lic-finder td:nth-child(2){white-space:nowrap}
+.lic-card{scroll-margin-top:1.5rem}
+.lic-card:target{outline:2px solid var(--olive);outline-offset:2px}
+@media (max-width:640px){.lic-finder td:nth-child(2){white-space:normal}}
