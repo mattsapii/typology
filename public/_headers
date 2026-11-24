@@ -1,0 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; script-src 'self' https://gumroad.com; style-src 'self' 'unsafe-inline' https://gumroad.com; font-src 'self'; frame-src https://gumroad.com https://*.gumroad.com; connect-src 'self'; form-action 'self' https:; base-uri 'self'; object-src 'none'
+
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
+/images/*
+  Cache-Control: public, max-age=2592000

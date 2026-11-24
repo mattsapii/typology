@@ -1,0 +1,5 @@
+# Cloudflare Pages project configuration.
+# Dashboard settings that match this file: Build command `node build.mjs`, Output directory `dist`.
+name = "typology"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-11-01"

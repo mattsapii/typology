@@ -1,0 +1,20 @@
+{
+  "name": "Typology",
+  "tagline": "Handwritten typefaces from an independent foundry",
+  "url": "https://typology.pages.dev",
+  "email": "hello@example.com",
+  "_emailNote": "Replace url and email with your real values before launch.",
+  "gumroadOverlay": false,
+  "_gumroadOverlayNote": "Set to true only after you have tested the overlay with your real Gumroad products. Direct links always remain the fallback.",
+  "newsletterAction": "",
+  "_newsletterNote": "Paste a form endpoint (Buttondown, Mailchimp embed action, etc.). If empty, the form opens an email to the address above.",
+  "defaultTesterText": "Made with Love",
+  "instagram": "",
+  "currencySymbol": "$",
+  "heroSlug": "sample-signature",
+  "licenseSummary": [
+    "Use the font in unlimited personal and commercial projects: branding, packaging, print, video, social media and merchandise.",
+    "Install on up to the number of computers stated at checkout for the buyer's own work.",
+    "Embedding in apps, games, websites as a web font, or in products where the font can be extracted needs a separate license."
+  ]
+}
