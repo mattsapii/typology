@@ -74,7 +74,24 @@ export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
   els.align.forEach((b) => b.addEventListener('click', () => set({ align: b.dataset.value })));
   els.reset?.addEventListener('click', () => { set({ ...D, size }); els.text?.focus(); });
 
-  document.addEventListener('themechange', () => { sync(); paint(); });
+  // Swatches come in a light and a dark set (same order). When the theme flips, a chosen swatch
+  // moves to its twin in the new set; custom colors stay, unless they would become unreadable.
+  const setOf = (nodes, name) => nodes.filter((b) => b.dataset.set === name).map((b) => b.dataset.value.toLowerCase());
+  const lists = { color: { light: setOf(els.color, 'light'), dark: setOf(els.color, 'dark') }, bg: { light: setOf(els.bg, 'light'), dark: setOf(els.bg, 'dark') } };
+  let theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const twin = (v, kind, from, to) => { if (!v) return v; const i = lists[kind][from].indexOf(v.toLowerCase()); return i < 0 ? v : (lists[kind][to][i] || v); };
+  document.addEventListener('themechange', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    if (next !== theme) {
+      state.color = twin(state.color, 'color', theme, next);
+      state.bg = twin(state.bg, 'bg', theme, next);
+      theme = next;
+      const e = eff(state);
+      if (state.color && contrast(e.color, e.bg) < 1.6) state.color = null;
+      persist();
+    }
+    sync(); paint();
+  });
   sync(); paint();
   return { state, set, paint };
 }
