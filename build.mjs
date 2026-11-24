@@ -290,7 +290,7 @@ for (const p of products) {
       <p class="bp-price"><span class="muted">From</span><span class="price">${money(p)}</span><span class="muted">${esc(LIC[0].name)}</span></p>
       <dl class="bp-rows"><dt>File</dt><dd>${esc(formats.join(', '))}, desktop install</dd><dt>Characters</dt><dd>${glyphCount} glyphs, ${esc(p.languageSupport.join(', '))}</dd><dt>Licenses</dt><dd>${LIC.length} options, ${usd(LIC[0].price)} to ${usd(LIC[LIC.length - 1].price)}</dd></dl>
       ${buy(`Buy ${esc(p.name)}`).replace('class="btn lg', 'class="btn block')}
-      <p class="small muted">Pay once on Gumroad. Download the files right after checkout.</p>
+      <p class="small muted">Choose your license on the Gumroad page. Pay once and download the files right after checkout.</p>
       <a class="link small" href="#lic-h">Compare licenses</a>
     </aside>
   </div>
@@ -390,7 +390,7 @@ add('/about/', layout({
 }));
 
 const faqs = [
-  ['How do I buy a font?', 'Open a font page and choose Buy now. You go to the matching Gumroad checkout, pay there and download the files straight away.'],
+  ['How do I buy a font?', 'Open a font page and choose Buy. On the Gumroad page, pick the license you need, pay there and download the files straight away.'],
   ['What do I receive after purchase?', 'The font files in the formats listed on each font page, ready to install on Windows, macOS and Linux.'],
   ['Are the previews the real fonts?', 'Yes. The tester uses a web version of each font file, so letter shapes and spacing match what you download.'],
   ['Can I use the fonts on a website or in an app?', 'Yes, with the right license. A website needs the Webfont License. Apps and games need the Ads and Platform License. The licensing page lists every option and price.'],
