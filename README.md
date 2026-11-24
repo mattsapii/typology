@@ -29,13 +29,16 @@ Semua data ada di `data/products.json`. Tiga produk saat ini adalah **placeholde
 4. `python3 scripts/make-images.py` membuat gambar OG dan specimen dari font (butuh `pillow`). Atau pakai gambar buatan sendiri.
 5. Hapus `"placeholder": true` dan jalankan `node build.mjs`. Build akan gagal jika ada kolom, kategori, atau file font yang hilang.
 
+## Hero beranda
+Teks hero "Your words, handwritten" adalah SVG (`src/images/hero-your-words.svg`) yang diekspor dari frame Figma "Home revamp v1" (font Hegomoni Signature, teks di-outline). Caption-nya diatur lewat `heroCaption` di `data/site.json`. Untuk mengganti, ekspor ulang teks hero dari Figma sebagai SVG dan timpa file itu.
+
 ## Gumroad
 - Tombol **Buy now** memakai `gumroadUrl` tiap produk dan membuka checkout Gumroad di tab baru. Link langsung ini selalu tersedia.
 - Overlay Gumroad: set `"gumroadOverlay": true` di `data/site.json` hanya setelah Anda mengujinya dengan produk asli. Jika skrip Gumroad gagal, link langsung tetap jalan.
 - Tidak ada pemrosesan pembayaran di situs ini, dan tidak ada pembelian yang dianggap sukses sebelum Gumroad mengonfirmasi.
 
 ## Yang harus Anda ganti sebelum rilis
-- `data/site.json`: `url`, `email`, `newsletterAction` (kosong = tombol Subscribe membuka email), `instagram`, `licenseSummary`
+- `data/site.json`: `url`, `email`, `instagram`, `licenseSummary`
 - `data/products.json`: seluruh produk placeholder
 - Teks `/about/`, `/faq/`, `/licensing/`, `/privacy/`, `/terms/` di `build.mjs` adalah draf umum. Periksa dan sesuaikan dengan ketentuan lisensi Anda; sebaiknya ditinjau ahli hukum.
 - Formulir kontak membuka aplikasi email pengunjung (tanpa backend). Untuk formulir sungguhan, sambungkan layanan formulir dan ubah `src/js/contact.js`.
