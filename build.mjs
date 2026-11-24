@@ -92,18 +92,18 @@ function card(p, { near = false } = {}) {
 // or a mockup photo when bestFor[].image is set (path under /images/).
 const hexOk = (v, d) => (/^#[0-9a-f]{6}$/i.test(v || '') ? v : d);
 function bestFor(p) {
-  const list = (p.bestFor || []).slice(0, 4);
+  const list = (p.bestFor || []).slice(0, 3);
   if (!list.length) return '';
   return `<section class="d-section best-for" aria-labelledby="bf-h">
     <div class="sec-head stack"><h2 id="bf-h">Best for</h2><p>Where ${esc(p.name)} looks its best. Select a card to load its words into the tester.</p></div>
     <ul class="bf-grid" role="list">${list.map((c) => {
-      const style = `--bf-bg:${hexOk(c.bg, '#F1EDE3')};--bf-fg:${hexOk(c.fg, '#1C1B18')};--bf-accent:${hexOk(c.accent, '#4B5A32')};--ff:'${esc(p.previewFont)}'`;
+      const style = `--bf-bg:${hexOk(c.bg, '#1C1B18')};--bf-fg:${hexOk(c.fg, '#F1EDE3')};--ff:'${esc(p.previewFont)}'`;
       const art = c.image
-        ? `<img src="${esc(c.image)}" alt="${esc(c.imageAlt || `${p.name} on ${c.title.toLowerCase()}`)}" loading="lazy" decoding="async" width="800" height="600">`
-        : `<span class="bf-words${c.shape === 'sticker' ? ' is-sticker' : ''}" aria-hidden="true">${esc(c.words)}</span>`;
+        ? `<img src="${esc(c.image)}" alt="${esc(c.imageAlt || `${p.name} on ${c.title.toLowerCase()}`)}" loading="lazy" decoding="async" width="1200" height="800">`
+        : `<span class="bf-words" aria-hidden="true">${esc(c.words)}</span>`;
       return `<li class="bf-card" style="${style}">
         <div class="bf-art${c.image ? ' has-img' : ''}">${art}</div>
-        <div class="bf-cap"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p>
+        <div class="bf-cap"><div class="bf-txt"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></div>
         <button type="button" class="link-btn" data-try="${esc(c.words)}" aria-label="Try “${esc(c.words)}” in the tester">Try these words</button></div>
       </li>`;
     }).join('')}</ul>

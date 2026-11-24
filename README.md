@@ -49,8 +49,7 @@ Teks hero "Your words, handwritten" adalah SVG (`src/images/hero-your-words.svg`
 - Struktur: `build.mjs` (generator + komponen), `src/css`, `src/js`, `data/`, `fonts/`, `public/` (`_headers`, robots, favicon), `wrangler.toml`.
 
 ### Bagian "Best for" di halaman font
-Isi `bestFor` di `data/products.json` (maksimal 4 kartu per font):
+Isi `bestFor` di `data/products.json` (3 kartu per font: dua berdampingan, kartu ketiga lebar penuh):
 - `title`, `text`: nama kegunaan dan satu kalimat penjelasan.
 - `words`: contoh tulisan yang tampil di kartu dan masuk ke tester saat "Try these words" diklik.
-- `bg`, `fg`: warna latar dan tulisan (hex, misalnya `#1C1B18`). `shape: "sticker"` + `accent` untuk stiker bulat.
-- `image` (opsional): foto mockup, misalnya `/images/mockups/lempo-cafe.jpg` (simpan di `src/images/mockups/`, rasio 4:3, lebar 800 px). Jika diisi, foto menggantikan contoh tulisan. `imageAlt` untuk teks alternatif.
+- `bg`, `fg`: warna latar dan tulisan (hex, misalnya `#1C1B18`). - `image` (opsional): foto mockup, misalnya `/images/mockups/lempo-cafe.jpg` (simpan di `src/images/mockups/`, rasio 3:2, lebar 1200 px untuk kartu kecil dan 2000 px untuk kartu lebar). Jika diisi, foto menggantikan contoh tulisan. `imageAlt` untuk teks alternatif.
