@@ -6,5 +6,13 @@
   "alternates": [],
   "alternateCount": 0,
   "hasKerning": true
+ },
+ "nananad": {
+  "glyphCount": 143,
+  "chars": "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§©«¬®¯°±²³¶·¹»¼½¾¿×÷ƒ˜μ–—‘’‚“”„†‡•…‰‹›⁄€™−",
+  "features": [],
+  "alternates": [],
+  "alternateCount": 0,
+  "hasKerning": true
  }
 }
