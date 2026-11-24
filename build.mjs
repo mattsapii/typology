@@ -147,11 +147,11 @@ const orgLD = { '@context': 'https://schema.org', '@type': 'Organization', name:
 function newsletter() {
   const action = site.newsletterAction ? ` action="${esc(site.newsletterAction)}" method="post"` : '';
   return `<section class="news" aria-labelledby="news-h"><div class="wrap">
-  <div><h2 id="news-h">New releases, in your inbox</h2><p>One short email when a new typeface is released. No schedule, no filler.</p></div>
+  <div><h2 id="news-h">Hear about new fonts first</h2><p>One email when a new font is out. Nothing else.</p></div>
   <form data-news data-to="${esc(site.email)}"${action}>
     <label for="news-email">Email address</label>
     <input type="email" id="news-email" name="email" required autocomplete="email" placeholder="you@example.com">
-    <button class="btn" type="submit">Subscribe</button>
+    <button class="btn" type="submit">Email me new fonts</button>
   </form></div></section>`;
 }
 
@@ -171,16 +171,16 @@ const add = (p, html) => pages.push([p, html]);
   const body = `
 <section class="hero" aria-labelledby="hero-h"><div class="wrap">
   <h1 id="hero-h" class="sr">Handwritten fonts by ${site.name}</h1>
-  <div class="hero-specimen is-near specimen-hero" style="--ff:'${esc(heroProduct.previewFont)}';font-family:'${esc(heroProduct.previewFont)}',var(--ui)" aria-hidden="true">Letters with a pulse</div>
+  <div class="hero-specimen is-near specimen-hero" style="--ff:'${esc(heroProduct.previewFont)}';font-family:'${esc(heroProduct.previewFont)}',var(--ui)" aria-hidden="true">Your words, handwritten</div>
   <div class="hero-grid">
-    <p>${site.name} is an independent foundry for handwritten typefaces: signatures, brush scripts, monolines and everyday hands. Type your own words and test every font before you buy.</p>
-    <div><div class="hero-cta"><a class="btn lg" href="/shop/">Explore fonts</a><a class="btn lg ghost" href="#tester">Try the tester</a></div>
+    <p>Type your brand name, a quote or a wedding date and see it in every ${site.name} font before you pay. Signatures, brush scripts, monolines and playful lettering from an independent foundry.</p>
+    <div><div class="hero-cta"><a class="btn lg" href="#tester">Try your words</a><a class="btn lg ghost" href="/shop/">Browse all fonts</a></div>
     <p class="hero-note">Hero set in ${esc(heroProduct.name)}.</p></div>
   </div>
 </div></section>
 
 <section class="section" id="tester" aria-labelledby="tester-h"><div class="wrap">
-  <div class="sec-head"><h2 id="tester-h">Test every font with your own words</h2><p>One field updates every specimen on this page, set in each font's real file.</p></div>
+  <div class="sec-head"><h2 id="tester-h">Test every font with your own words</h2><p>Type once. Every specimen below changes, set in each font's real file.</p></div>
   ${testerControls({ id: 'home' })}
   <p class="tester-note" id="tester-note">Leave the field empty to see each font's name. Your settings carry over to the shop and font pages.</p>
   <div class="chips" role="group" aria-label="Filter specimens by category" style="margin:1.5rem 0">
@@ -239,7 +239,7 @@ ${newsletter()}`;
 {
   const counts = (c) => products.filter((p) => p.category === c).length;
   const body = `
-<div class="wrap page-title"><h1>Fonts</h1><p>Type once and every font below updates. Filter by category, search by name, and sort by newest, popularity or price.</p></div>
+<div class="wrap page-title"><h1>Fonts</h1><p>Type your text once and compare every font side by side. Filter by style, search by name, or sort by newest, popularity and price.</p></div>
 <div class="toolbar" role="region" aria-label="Catalog controls"><div class="wrap">
   <div class="row">
     <div class="field"><label for="q">Search by font name</label><input type="search" id="q" data-q placeholder="Search fonts" autocomplete="off"></div>
@@ -331,7 +331,7 @@ for (const p of products) {
     <p><a class="link" href="/licensing/">Read the full licensing terms</a></p>
   </section>
   <section class="d-section" aria-labelledby="buy-h"><h2 id="buy-h">Pricing and purchase</h2>
-    <div class="price-box"><div><div class="price">${money(p)}</div><p class="muted" style="margin:.25rem 0 0">One-time purchase. Checkout and download are handled by Gumroad.</p></div>${buy('Buy now')}</div>
+    <div class="price-box"><div><div class="price">${money(p)}</div><p class="muted" style="margin:.25rem 0 0">Pay once on Gumroad. Download the files right after checkout.</p></div>${buy(`Buy ${esc(p.name)}`)}</div>
   </section>
   <section class="d-section related" aria-labelledby="rel-h"><h2 id="rel-h">Related fonts</h2>
     <div class="cards">${related.map((x) => card(x)).join('')}</div>
@@ -387,8 +387,8 @@ add('/about/', layout({
 
 const faqs = [
   ['How do I buy a font?', 'Open a font page and choose Buy now. You go to the matching Gumroad checkout, pay there and download the files straight away.'],
-  ['What do I receive after purchase?', 'The full font files in OTF and TTF format, ready to install on Windows, macOS and Linux.'],
-  ['Are the previews the real fonts?', 'Yes. The tester uses a web version of each font, so spacing, connections and alternates match the files you will download.'],
+  ['What do I receive after purchase?', 'The font files in the formats listed on each font page, ready to install on Windows, macOS and Linux.'],
+  ['Are the previews the real fonts?', 'Yes. The tester uses a web version of each font file, so letter shapes and spacing match what you download.'],
   ['Can I use the fonts on a website or in an app?', 'Check the licensing page for what a standard purchase covers. For app, game or product embedding, contact us and we will help.'],
   ['Do you offer refunds?', 'Refunds are handled through Gumroad. If something is wrong with your files, contact us and we will fix it.'],
   ['A character is missing. What now?', 'Look at the glyph grid on the font page before you buy. If you need a character that is missing, contact us.'],
@@ -409,7 +409,7 @@ add('/contact/', layout({
 <div class="field"><label for="c-email">Email address</label><input type="email" id="c-email" name="email" required autocomplete="email"></div>
 <div class="field"><label for="c-topic">Topic</label><select id="c-topic" name="topic"><option>Licensing question</option><option>Help with an order</option><option>Missing character</option><option>Something else</option></select></div>
 <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" required></textarea></div>
-<div><button class="btn lg" type="submit">Write email</button></div>
+<div><button class="btn lg" type="submit">Open my email app</button></div>
 <p class="status" data-status role="status" aria-live="polite"></p>
 <p class="muted small">This button opens your email app with the message filled in. You can also write directly to <a href="mailto:${esc(site.email)}">${esc(site.email)}</a>.</p>
 </form></div>`,
