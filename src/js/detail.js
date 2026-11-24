@@ -15,6 +15,16 @@ presets.forEach((b) => b.addEventListener('click', () => {
   input.dispatchEvent(new Event('input', { bubbles: true }));
 }));
 
+// "Best for" cards send their words to the tester
+const stage = document.querySelector('.d-tester');
+document.querySelectorAll('[data-try]').forEach((b) => b.addEventListener('click', () => {
+  input.value = b.dataset.try;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  stage.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  input.focus({ preventScroll: true });
+}));
+
 // OpenType feature toggles
 const boxes = [...document.querySelectorAll('[data-feature]')];
 const applyFeatures = () => {

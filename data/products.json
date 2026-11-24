@@ -69,7 +69,39 @@
       "featured": true,
       "bestSeller": false,
       "seoTitle": "Lempo, a bubble font for packaging and signs",
-      "seoDescription": "Lempo is a puffy bubble display font for café signs, kids' book covers, stickers and sale banners. Test it with your own words, then license it from $29."
+      "seoDescription": "Lempo is a puffy bubble display font for café signs, kids' book covers, stickers and sale banners. Test it with your own words, then license it from $29.",
+      "bestFor": [
+        {
+          "title": "Café signs",
+          "text": "Menu boards, chalk signs and window decals.",
+          "words": "Fresh buns daily",
+          "bg": "#1C1B18",
+          "fg": "#F1EDE3"
+        },
+        {
+          "title": "Kids' book covers",
+          "text": "Titles that feel friendly from across the shelf.",
+          "words": "The Big Bubble",
+          "bg": "#EBC9C0",
+          "fg": "#1C1B18"
+        },
+        {
+          "title": "Stickers and labels",
+          "text": "Short words on small, round shapes.",
+          "words": "yum!",
+          "bg": "#DCE6D2",
+          "fg": "#F1EDE3",
+          "shape": "sticker",
+          "accent": "#4B5A32"
+        },
+        {
+          "title": "Sale banners",
+          "text": "Big numbers people read in one glance.",
+          "words": "50% off",
+          "bg": "#9A3B1E",
+          "fg": "#F1EDE3"
+        }
+      ]
     },
     {
       "id": "ak-005",
@@ -113,7 +145,37 @@
       "featured": true,
       "bestSeller": false,
       "seoTitle": "Nananad, a font from a child's handwriting",
-      "seoDescription": "Nananad is a font made from a 7-year-old's real handwriting. Use it for birthday cards, school projects and children's books. Test it, license it from $29."
+      "seoDescription": "Nananad is a font made from a 7-year-old's real handwriting. Use it for birthday cards, school projects and children's books. Test it, license it from $29.",
+      "bestFor": [
+        {
+          "title": "Birthday cards",
+          "text": "A note that looks written by a small, happy hand.",
+          "words": "Happy birthday, Grandma!",
+          "bg": "#EBC9C0",
+          "fg": "#1C1B18"
+        },
+        {
+          "title": "School projects",
+          "text": "Posters, worksheets and class charts.",
+          "words": "My science project",
+          "bg": "#DCE6D2",
+          "fg": "#1C1B18"
+        },
+        {
+          "title": "Children's books",
+          "text": "Story text that sounds like a kid telling it.",
+          "words": "Once upon a time, I had a cat",
+          "bg": "#F1EDE3",
+          "fg": "#1C1B18"
+        },
+        {
+          "title": "Party invitations",
+          "text": "Invites for kids' parties and family days.",
+          "words": "You're invited!",
+          "bg": "#4B5A32",
+          "fg": "#F1EDE3"
+        }
+      ]
     },
     {
       "id": "ak-006",
@@ -157,7 +219,37 @@
       "featured": true,
       "bestSeller": false,
       "seoTitle": "Morbula, a retro sci-fi display font",
-      "seoDescription": "Morbula is a chunky retro sci-fi display font for album covers, gig posters, streetwear and game titles. Test it with your own words, license it from $29."
+      "seoDescription": "Morbula is a chunky retro sci-fi display font for album covers, gig posters, streetwear and game titles. Test it with your own words, license it from $29.",
+      "bestFor": [
+        {
+          "title": "Album covers",
+          "text": "Titles with a retro synth and sci-fi feel.",
+          "words": "Neon Orbit",
+          "bg": "#1C1B18",
+          "fg": "#EBC9C0"
+        },
+        {
+          "title": "Gig posters",
+          "text": "Band names that stay loud from far away.",
+          "words": "Live tonight",
+          "bg": "#9A3B1E",
+          "fg": "#F1EDE3"
+        },
+        {
+          "title": "Streetwear",
+          "text": "Chunky words for tees, caps and patches.",
+          "words": "Space club",
+          "bg": "#DCE6D2",
+          "fg": "#1C1B18"
+        },
+        {
+          "title": "Game titles",
+          "text": "Logos and menus for retro arcade games.",
+          "words": "Press start",
+          "bg": "#4B5A32",
+          "fg": "#F1EDE3"
+        }
+      ]
     }
   ]
 }

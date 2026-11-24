@@ -88,6 +88,28 @@ function card(p, { near = false } = {}) {
 </article>`;
 }
 
+// "Best for" use cases on a font page. Each card shows its words in the font,
+// or a mockup photo when bestFor[].image is set (path under /images/).
+const hexOk = (v, d) => (/^#[0-9a-f]{6}$/i.test(v || '') ? v : d);
+function bestFor(p) {
+  const list = (p.bestFor || []).slice(0, 4);
+  if (!list.length) return '';
+  return `<section class="d-section best-for" aria-labelledby="bf-h">
+    <div class="sec-head stack"><h2 id="bf-h">Best for</h2><p>Where ${esc(p.name)} looks its best. Select a card to load its words into the tester.</p></div>
+    <ul class="bf-grid" role="list">${list.map((c) => {
+      const style = `--bf-bg:${hexOk(c.bg, '#F1EDE3')};--bf-fg:${hexOk(c.fg, '#1C1B18')};--bf-accent:${hexOk(c.accent, '#4B5A32')};--ff:'${esc(p.previewFont)}'`;
+      const art = c.image
+        ? `<img src="${esc(c.image)}" alt="${esc(c.imageAlt || `${p.name} on ${c.title.toLowerCase()}`)}" loading="lazy" decoding="async" width="800" height="600">`
+        : `<span class="bf-words${c.shape === 'sticker' ? ' is-sticker' : ''}" aria-hidden="true">${esc(c.words)}</span>`;
+      return `<li class="bf-card" style="${style}">
+        <div class="bf-art${c.image ? ' has-img' : ''}">${art}</div>
+        <div class="bf-cap"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p>
+        <button type="button" class="link-btn" data-try="${esc(c.words)}" aria-label="Try “${esc(c.words)}” in the tester">Try these words</button></div>
+      </li>`;
+    }).join('')}</ul>
+  </section>`;
+}
+
 function fontRow(p, { near = false } = {}) {
   return `<article class="frow" data-card data-cat="${p.category}" data-name="${esc(p.name.toLowerCase())}" data-price="${p.price}" data-date="${p.releaseDate}" data-pop="${p.popularity ?? 0}">
   <header class="frow-head">
@@ -311,6 +333,7 @@ for (const p of products) {
     <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(SPECIMEN)}"><span data-sp-text>${esc(SPECIMEN)}</span></div></div>
   </div>
 
+  ${bestFor(p)}
   <section class="d-section" aria-labelledby="chars-h">
     <div class="sec-head stack"><h2 id="chars-h">Characters</h2><p>${glyphCount} glyphs. Select one to see it large.</p></div>
     <div class="tabs" role="tablist" aria-label="Character groups">${tabs.map(([k, l], n) => `<button type="button" role="tab" data-tab="${k}" aria-selected="${n === 0}">${esc(l)}</button>`).join('')}</div>
