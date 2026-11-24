@@ -67,5 +67,7 @@
       "useCase": "One named brand, with capped social, ads and merch use"
     }
   ],
-  "_licensesNote": "Prices are per font, in USD. The cheapest one is shown as 'From' on font cards. Edit here; build.mjs reads this list for the Licensing page and font pages."
+  "_licensesNote": "Prices are per font, in USD. The cheapest one is shown as 'From' on font cards. Edit here; build.mjs reads this list for the Licensing page and font pages.",
+  "pagesUpdated": "2026-11-24",
+  "_pagesUpdatedNote": "Sitemap lastmod for non-font pages. Change it when you edit their text."
 }
