@@ -291,7 +291,7 @@ for (const p of products) {
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/shop/">Fonts</a> / <a href="/shop/?category=${p.category}">${esc(catName(p.category))}</a> / <span aria-current="page">${esc(p.name)}</span></nav>
       <h1>${esc(p.name)}</h1>
       <ul class="badges" aria-label="Font facts"><li class="badge">${esc(catName(p.category))}</li><li class="badge">${p.fontStyles.length} ${p.fontStyles.length === 1 ? 'style' : 'styles'}</li><li class="badge">${glyphCount} glyphs</li>${formats.map((f) => `<li class="badge">${esc(f)}</li>`).join('')}</ul>
-      <p class="fp-desc">${esc(p.description)}</p>
+      <div class="fp-desc">${p.description.split(/\n\s*\n/).map((x) => `<p>${esc(x)}</p>`).join('')}</div>
     </div>
     <aside class="buy-panel" aria-label="Buy ${esc(p.name)}">
       <p class="bp-price"><span class="muted">From</span><span class="price">${money(p)}</span><span class="muted">${esc(LIC[0].name)}</span></p>

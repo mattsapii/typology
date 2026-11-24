@@ -68,6 +68,48 @@
       "popularity": 50,
       "featured": true,
       "bestSeller": false
+    },
+    {
+      "id": "ak-005",
+      "slug": "nananad",
+      "name": "Nananad",
+      "category": "casual-handwritten",
+      "description": "One day, my 7-year-old daughter was writing in her notebook. As I watched her fill the page, I noticed something special—her handwriting was remarkably neat, expressive, and naturally beautiful for a child her age.\n\nAnd then I had an idea.\n\nWhat if I could preserve this little moment in time?\n\nSo, as her father, I decided to turn her handwriting into her very first creative work.\n\nThe result is a simple, honest, and wonderfully natural handwritten font inspired directly by the way she writes. It isn't perfectly polished—and that's exactly what makes it special. The subtle imperfections, playful shapes, and organic spacing give each letter a genuine human character that is difficult to recreate artificially.",
+      "price": 29,
+      "currency": "USD",
+      "previewFont": "AK Preview 05",
+      "previewFontFile": "/fonts/previews/font-05.woff2",
+      "productImage": "/images/products/nananad-og.png",
+      "specimenImages": [
+        {
+          "src": "/images/products/nananad-specimen-1.png",
+          "alt": "Nananad set in a dark panel reading Made with Love"
+        },
+        {
+          "src": "/images/products/nananad-specimen-2.png",
+          "alt": "Nananad specimen reading Every line has a pulse"
+        }
+      ],
+      "gumroadUrl": "https://typology.gumroad.com/l/nanananad-font?layout=profile",
+      "fontStyles": [
+        "Regular"
+      ],
+      "glyphInformation": {
+        "count": 143,
+        "alternates": "",
+        "note": ""
+      },
+      "languageSupport": [
+        "English"
+      ],
+      "features": [],
+      "formats": [
+        "TTF"
+      ],
+      "releaseDate": "2026-11-24",
+      "popularity": 50,
+      "featured": true,
+      "bestSeller": false
     }
   ]
 }

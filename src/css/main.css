@@ -369,3 +369,5 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .shop-count .link-btn{min-height:0;padding:0}
 .frows.grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,34rem),1fr))}
 .shop .soon-row{margin-top:1.25rem}
+.fp-desc p{margin:0 0 .8em}
+.fp-desc p:last-child{margin-bottom:0}
