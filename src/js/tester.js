@@ -1,6 +1,10 @@
 // Shared live font tester. One input drives every [data-sp-text] inside `scope`.
-const KEY = 'typology.tester.v1';
-const D = { text: '', color: '#1C1B18', bg: '#F2EEE3', align: 'left' };
+const KEY = 'typology.tester.v2';
+// color and bg stay null until the visitor picks one, so specimens follow the light or dark theme.
+const D = { text: '', color: null, bg: null, align: 'left' };
+const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const toHex = (v) => { if (!v) return v; if (v.startsWith('#')) return v.length === 4 ? '#' + [...v.slice(1)].map((c) => c + c).join('') : v.slice(0, 7); return v; };
+const eff = (s) => ({ color: toHex(s.color || cssVar('--ink')), bg: toHex(s.bg || cssVar('--paper')) });
 
 const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
 const write = (o) => { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch {} };
@@ -30,11 +34,11 @@ export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
   let raf = 0;
 
   function paint() {
-    const dark = lum(state.bg) < 0.35;
-    scope.toggleAttribute('data-sp-dark', dark);
+    const e = eff(state);
+    scope.setAttribute('data-sp-tone', lum(e.bg) < 0.35 ? 'dark' : 'light');
     scope.style.setProperty('--sp-size', state.size);
-    scope.style.setProperty('--sp-color', state.color);
-    scope.style.setProperty('--sp-bg', state.bg);
+    if (state.color) scope.style.setProperty('--sp-color', state.color); else scope.style.removeProperty('--sp-color');
+    if (state.bg) scope.style.setProperty('--sp-bg', state.bg); else scope.style.removeProperty('--sp-bg');
     scope.style.setProperty('--sp-align', state.align);
     $$('[data-sp-text]', scope).forEach((n) => {
       if (n.closest('[data-static]')) return;
@@ -49,15 +53,16 @@ export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
     if (els.text) els.text.value = state.text;
     if (els.size) els.size.value = state.size;
     if (els.out) els.out.textContent = state.size + ' px';
-    els.color.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value.toLowerCase() === state.color.toLowerCase())));
-    els.bg.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value.toLowerCase() === state.bg.toLowerCase())));
-    if (els.colorCustom) els.colorCustom.value = state.color;
-    if (els.bgCustom) els.bgCustom.value = state.bg;
+    const e = eff(state);
+    els.color.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value.toLowerCase() === e.color.toLowerCase())));
+    els.bg.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value.toLowerCase() === e.bg.toLowerCase())));
+    if (els.colorCustom) els.colorCustom.value = e.color;
+    if (els.bgCustom) els.bgCustom.value = e.bg;
     els.align.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value === state.align)));
   };
   const set = (patch) => {
     // picking a background that hides the current text color flips the text to stay readable
-    if (patch.bg && !patch.color && contrast(state.color, patch.bg) < 1.6) patch.color = lum(patch.bg) < 0.35 ? '#F2EEE3' : '#1C1B18';
+    if (patch.bg && !patch.color && contrast(eff(state).color, patch.bg) < 1.6) patch.color = lum(patch.bg) < 0.35 ? '#F2EEE3' : '#1C1B18';
     Object.assign(state, patch); sync(); persist(); schedule(); };
 
   els.text?.addEventListener('input', (e) => set({ text: e.target.value }));
@@ -69,6 +74,7 @@ export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
   els.align.forEach((b) => b.addEventListener('click', () => set({ align: b.dataset.value })));
   els.reset?.addEventListener('click', () => { set({ ...D, size }); els.text?.focus(); });
 
+  document.addEventListener('themechange', () => { sync(); paint(); });
   sync(); paint();
   return { state, set, paint };
 }

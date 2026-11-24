@@ -100,7 +100,8 @@ function fontRow(p, { near = false } = {}) {
 const nav = [['/shop/', 'Fonts'], ['/licensing/', 'Licensing'], ['/about/', 'About'], ['/faq/', 'FAQ'], ['/contact/', 'Contact']];
 const header = (cur) => `<a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="wrap"><a class="brand" href="/" aria-label="${site.name} home">${site.name}</a>
-<nav class="nav" aria-label="Main">${nav.map(([h, t]) => `<a href="${h}"${cur === h ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</nav></div></header>`;
+<div class="head-right"><nav class="nav" aria-label="Main">${nav.map(([h, t]) => `<a href="${h}"${cur === h ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</nav>
+<button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 12.5A7 7 0 0 1 7.5 3.5a7 7 0 1 0 9 9Z"/></svg><svg class="sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.5"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M4 16l1.4-1.4M14.6 5.4 16 4"/></svg></button></div></div></header>`;
 
 const footer = () => `<footer class="site-foot"><div class="wrap">
 <div class="foot-grid">
@@ -138,7 +139,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : ''}
 ${preload.map((f) => `<link rel="preload" href="${f}" as="font" type="font/woff2" crossorigin>`).join('\n')}
 <link rel="stylesheet" href="/css/main.css?v=${ver}">
 <link rel="stylesheet" href="/css/fonts.css?v=${ver}">
-<script>document.documentElement.className='js'</script>
+<script src="/js/theme.js?v=${ver}"></script>
 <noscript><style>.specimen{font-family:var(--ff),var(--ui)!important}.specimen>span{opacity:1!important}</style></noscript>
 ${head}
 ${ld.map((o) => `<script type="application/ld+json">${json(o)}</script>`).join('\n')}
@@ -370,6 +371,7 @@ add('/licensing/', layout({
   ld: [breadcrumbLD([['Home', '/'], ['Licensing', '/licensing/']])],
   body: `<div class="wrap page-title"><h1>Licensing</h1><p>Every ${site.name} font has the same licenses. Pick the one that matches how you will use the font. Prices are one-time, per font, in US dollars.</p></div>
 <div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)">
+  <h2 class="sr">Licenses and prices</h2>
   ${licenseCards()}
   <div class="prose lic-rules">
     <h2>Every license</h2>
