@@ -110,6 +110,48 @@
       "popularity": 50,
       "featured": true,
       "bestSeller": false
+    },
+    {
+      "id": "ak-006",
+      "slug": "morbula",
+      "name": "Morbula",
+      "category": "playful",
+      "description": "Morbula is a bold and experimental display font designed to bring personality, energy, and a futuristic edge to your typography. With its chunky letterforms, playful irregular shapes, and distinctive geometric details, Morbula creates an eye-catching look that feels both retro-inspired and boldly futuristic.",
+      "price": 29,
+      "currency": "USD",
+      "previewFont": "AK Preview 06",
+      "previewFontFile": "/fonts/previews/font-06.woff2",
+      "productImage": "/images/products/morbula-og.png",
+      "specimenImages": [
+        {
+          "src": "/images/products/morbula-specimen-1.png",
+          "alt": "Morbula set in a dark panel reading Made with Love"
+        },
+        {
+          "src": "/images/products/morbula-specimen-2.png",
+          "alt": "Morbula specimen reading Every line has a pulse"
+        }
+      ],
+      "gumroadUrl": "https://typology.gumroad.com/l/morbula-font?layout=profile",
+      "fontStyles": [
+        "Regular"
+      ],
+      "glyphInformation": {
+        "count": 138,
+        "alternates": "",
+        "note": ""
+      },
+      "languageSupport": [
+        "English"
+      ],
+      "features": [],
+      "formats": [
+        "TTF"
+      ],
+      "releaseDate": "2026-11-24",
+      "popularity": 50,
+      "featured": true,
+      "bestSeller": false
     }
   ]
 }

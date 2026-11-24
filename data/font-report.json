@@ -14,5 +14,13 @@
   "alternates": [],
   "alternateCount": 0,
   "hasKerning": true
+ },
+ "morbula": {
+  "glyphCount": 138,
+  "chars": "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~¡£¤¥¦§©¬®¯°±²³¶·¹¼½¾¿×÷ƒ˜μ–—‘’‚“”„†‡•…‰⁄€™−",
+  "features": [],
+  "alternates": [],
+  "alternateCount": 0,
+  "hasKerning": true
  }
 }
