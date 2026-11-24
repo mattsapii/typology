@@ -5,6 +5,10 @@ const D = { text: '', color: '#1C1B18', bg: '#F2EEE3', align: 'left' };
 const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
 const write = (o) => { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch {} };
 
+const hexRgb = (h) => { const v = h.replace('#', ''); return [0, 2, 4].map((i) => parseInt(v.slice(i, i + 2), 16) / 255); };
+const lum = (h) => { const [r, g, b] = hexRgb(h).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4)); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+
 export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -26,6 +30,8 @@ export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
   let raf = 0;
 
   function paint() {
+    const dark = lum(state.bg) < 0.35;
+    scope.toggleAttribute('data-sp-dark', dark);
     scope.style.setProperty('--sp-size', state.size);
     scope.style.setProperty('--sp-color', state.color);
     scope.style.setProperty('--sp-bg', state.bg);
@@ -49,7 +55,10 @@ export function initTester(scope, { page = 'page', size = 96, onChange } = {}) {
     if (els.bgCustom) els.bgCustom.value = state.bg;
     els.align.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value === state.align)));
   };
-  const set = (patch) => { Object.assign(state, patch); sync(); persist(); schedule(); };
+  const set = (patch) => {
+    // picking a background that hides the current text color flips the text to stay readable
+    if (patch.bg && !patch.color && contrast(state.color, patch.bg) < 1.6) patch.color = lum(patch.bg) < 0.35 ? '#F2EEE3' : '#1C1B18';
+    Object.assign(state, patch); sync(); persist(); schedule(); };
 
   els.text?.addEventListener('input', (e) => set({ text: e.target.value }));
   els.size?.addEventListener('input', (e) => set({ size: Number(e.target.value) }));
