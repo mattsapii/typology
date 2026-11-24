@@ -57,8 +57,8 @@ const icons = {
   list: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg>',
 };
 
-const TEXT_COLORS = [['#1C1B18', 'Ink'], ['#4A5733', 'Olive'], ['#8A3B22', 'Rust'], ['#1F3A5F', 'Navy'], ['#F2EEE3', 'Paper']];
-const BG_COLORS = [['#F2EEE3', 'Paper'], ['#E8E3D3', 'Bone'], ['#DDE2CB', 'Sage'], ['#EBCFC0', 'Blush'], ['#1C1B18', 'Ink']];
+const TEXT_COLORS = [['#1C1B18', 'Ink'], ['#4A5733', 'Olive'], ['#8A3B22', 'Rust'], ['#F2EEE3', 'Paper']];
+const BG_COLORS = [['#F2EEE3', 'Paper'], ['#DDE2CB', 'Sage'], ['#EBCFC0', 'Blush'], ['#1C1B18', 'Ink']];
 const swatches = (kind, list) => list.map(([v, n]) => `<button type="button" class="sw" style="--c:${v}" data-t="${kind}" data-value="${v}" aria-pressed="false" aria-label="${n}" title="${n}"></button>`).join('');
 
 function testerControls({ id, min = 24, max = 200, textLabel = 'Type your own words', placeholder = site.defaultTesterText, withText = true }) {
@@ -146,7 +146,7 @@ const orgLD = { '@context': 'https://schema.org', '@type': 'Organization', name:
 
 function newsletter() {
   const action = site.newsletterAction ? ` action="${esc(site.newsletterAction)}" method="post"` : '';
-  return `<section class="news on-ink" aria-labelledby="news-h"><div class="wrap">
+  return `<section class="news" aria-labelledby="news-h"><div class="wrap">
   <div><h2 id="news-h">New releases, in your inbox</h2><p>One short email when a new typeface is released. No schedule, no filler.</p></div>
   <form data-news data-to="${esc(site.email)}"${action}>
     <label for="news-email">Email address</label>
@@ -288,8 +288,10 @@ for (const p of products) {
     <div><h1>${esc(p.name)}</h1><p class="meta">${esc(catName(p.category))} · ${p.fontStyles.length} ${p.fontStyles.length === 1 ? 'style' : 'styles'} · ${glyphCount} glyphs</p></div>
     <div class="d-buy"><span class="price">${money(p)}</span>${buy()}</div>
   </div>
-  <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(p.name)}"><span data-sp-text>${esc(p.name)}</span></div></div>
+  <div class="d-tester">
   <div class="d-tools" role="region" aria-label="Specimen controls">${testerControls({ id: 'd', textLabel: `Type to preview ${p.name}`, placeholder: `Try “${site.defaultTesterText}”`, max: 240 })}</div>
+  <div class="d-stage"><div class="specimen is-near" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(p.name)}"><span data-sp-text>${esc(p.name)}</span></div></div>
+  </div>
 
   <section class="d-section" aria-labelledby="chars-h"><h2 id="chars-h">Characters</h2>
     <div class="glyph-row">${UP}</div>
@@ -335,7 +337,7 @@ for (const p of products) {
   </section>
   <div style="height:3rem"></div>
 </div>
-${newsletter()}`;
+`;
 
   const url = `/fonts/${p.slug}/`;
   add(url, layout({
