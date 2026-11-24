@@ -47,3 +47,10 @@ Teks hero "Your words, handwritten" adalah SVG (`src/images/hero-your-words.svg`
 - Skor Lighthouse (lokal, desktop, build ini): Performance 99-100, Accessibility 96-100, Best Practices 100, SEO 100, CLS 0. Ini hasil pengukuran sesaat, bukan jaminan; ukur ulang setelah deploy dengan font asli.
 - Hanya font hero dan font UI yang di-preload; font lain dimuat saat spesimen mendekati layar.
 - Struktur: `build.mjs` (generator + komponen), `src/css`, `src/js`, `data/`, `fonts/`, `public/` (`_headers`, robots, favicon), `wrangler.toml`.
+
+### Bagian "Best for" di halaman font
+Isi `bestFor` di `data/products.json` (maksimal 4 kartu per font):
+- `title`, `text`: nama kegunaan dan satu kalimat penjelasan.
+- `words`: contoh tulisan yang tampil di kartu dan masuk ke tester saat "Try these words" diklik.
+- `bg`, `fg`: warna latar dan tulisan (hex, misalnya `#1C1B18`). `shape: "sticker"` + `accent` untuk stiker bulat.
+- `image` (opsional): foto mockup, misalnya `/images/mockups/lempo-cafe.jpg` (simpan di `src/images/mockups/`, rasio 4:3, lebar 800 px). Jika diisi, foto menggantikan contoh tulisan. `imageAlt` untuk teks alternatif.
