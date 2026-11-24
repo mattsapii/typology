@@ -67,7 +67,9 @@
       "releaseDate": "2026-11-24",
       "popularity": 50,
       "featured": true,
-      "bestSeller": false
+      "bestSeller": false,
+      "seoTitle": "Lempo, a bubble font for packaging and signs",
+      "seoDescription": "Lempo is a puffy bubble display font for café signs, kids' book covers, stickers and sale banners. Test it with your own words, then license it from $29."
     },
     {
       "id": "ak-005",
@@ -109,7 +111,9 @@
       "releaseDate": "2026-11-24",
       "popularity": 50,
       "featured": true,
-      "bestSeller": false
+      "bestSeller": false,
+      "seoTitle": "Nananad, a font from a child's handwriting",
+      "seoDescription": "Nananad is a font made from a 7-year-old's real handwriting. Use it for birthday cards, school projects and children's books. Test it, license it from $29."
     },
     {
       "id": "ak-006",
@@ -151,7 +155,9 @@
       "releaseDate": "2026-11-24",
       "popularity": 50,
       "featured": true,
-      "bestSeller": false
+      "bestSeller": false,
+      "seoTitle": "Morbula, a retro sci-fi display font",
+      "seoDescription": "Morbula is a chunky retro sci-fi display font for album covers, gig posters, streetwear and game titles. Test it with your own words, license it from $29."
     }
   ]
 }

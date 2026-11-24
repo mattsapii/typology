@@ -176,7 +176,7 @@ const add = (p, html) => pages.push([p, html]);
 
   const body = `
 <section class="hero" aria-labelledby="hero-h"><div class="wrap">
-  <h1 id="hero-h" class="sr">Your words, handwritten. Fonts by ${site.name}</h1>
+  <h1 id="hero-h" class="sr">Your words, handwritten: bubble, retro and handwritten fonts you can test before you buy</h1>
   <figure class="hero-art">${heroSvg}<figcaption>${esc(site.heroCaption || '')}</figcaption></figure>
   <div class="hero-intro">
     <p>Type your brand name, a quote or a wedding date and see it in every ${site.name} font before you pay. Signatures, brush scripts, monolines and playful lettering from an independent foundry.</p>
@@ -217,8 +217,8 @@ ${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
 `;
 
   add('/', layout({
-    title: `${site.name} | Handwritten fonts, signatures and brush scripts`,
-    desc: 'Independent handwritten font foundry. Test signature fonts, brush scripts, casual handwriting and elegant scripts with your own text, then license instantly.',
+    title: `${site.name} | Bubble, retro and handwritten display fonts`,
+    desc: `Independent foundry for bubble, retro and handwritten display fonts. Type your own words to test every font, then buy a license from ${usd(LIC[0].price)}.`,
     path: '/', cur: '/', body, scripts: ['home'],
     preload: newest ? [newest.previewFontFile] : [],
     ld: [orgLD, { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: SITE }],
@@ -234,7 +234,7 @@ ${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
   const big = products.length >= (site.shopControlsFrom || 6);
   const list = [...products].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
   const body = `
-<div class="wrap page-title"><h1>Fonts</h1><p>Type your words once and compare every font side by side.</p></div>
+<div class="wrap page-title"><h1>All fonts</h1><p>Type your words once and compare every font side by side.</p></div>
 <div class="wrap shop">
   ${testerControls({ id: 'shop', max: 160 })}
   <p class="tester-note">Leave the field empty to see each font's name. Your settings carry over to the home and font pages.</p>
@@ -258,8 +258,8 @@ ${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
   <div style="height:clamp(3rem,6vw,5rem)"></div>
 </div>`;
   add('/shop/', layout({
-    title: 'Handwritten fonts: shop and live tester',
-    desc: 'Browse every Typology handwritten font. Type your own text and preview signature, brush script, casual, monoline, elegant and playful fonts side by side.',
+    title: 'All fonts: bubble, retro and handwritten',
+    desc: `Browse every ${site.name} font: bubble, retro and handwritten display fonts. Type your words once and compare them side by side. Licenses from ${usd(LIC[0].price)}.`,
     path: '/shop/', cur: '/shop/', body, scripts: ['shop'],
     ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/']]), { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Typology fonts', itemListElement: list.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/fonts/${p.slug}/`, name: p.name })) }],
   }));
@@ -351,8 +351,8 @@ for (const p of products) {
 
   const url = `/fonts/${p.slug}/`;
   add(url, layout({
-    title: `${p.name}: ${catName(p.category)} handwritten font`,
-    desc: `${p.name} is a ${catName(p.category).toLowerCase()} handwritten font by ${site.name}. Test it with your own text, inspect every glyph, then license it from ${money(p)}.`,
+    title: p.seoTitle || `${p.name}: ${catName(p.category)} font`,
+    desc: p.seoDescription || `${p.name} is a ${catName(p.category).toLowerCase()} font by ${site.name}. Test it with your own text, inspect every glyph, then license it from ${money(p)}.`,
     path: url, body, scripts: ['detail'], preload: [p.previewFontFile], ogImage: p.productImage, ogType: 'product',
     head: site.gumroadOverlay ? '<script src="https://gumroad.com/js/gumroad.js" async></script>' : '',
     ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/'], [p.name, url]]), {
@@ -414,9 +414,9 @@ const faqs = [
   ['Where is my receipt or download link?', 'Gumroad emails both after payment. You can also use the link in the receipt to download again.'],
 ];
 add('/faq/', layout({
-  title: 'FAQ', desc: `Answers about buying, licensing and using ${site.name} handwritten fonts.`, path: '/faq/', cur: '/faq/',
+  title: 'Font buying and licensing FAQ', desc: `Answers about buying, licensing and using ${site.name} handwritten fonts.`, path: '/faq/', cur: '/faq/',
   ld: [breadcrumbLD([['Home', '/'], ['FAQ', '/faq/']]), { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
-  body: `<div class="wrap page-title"><h1>Questions</h1><p>Short answers about buying and using our fonts.</p></div><div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)"><div class="faq">${faqs.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div>`,
+  body: `<div class="wrap page-title"><h1>Font buying and licensing FAQ</h1><p>Short answers about buying and using our fonts.</p></div><div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)"><div class="faq">${faqs.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div>`,
 }));
 
 add('/contact/', layout({
@@ -476,7 +476,14 @@ fs.readdirSync(path.join(ROOT, 'public')).forEach((f) => {
   out(f, d);
 });
 out('css/fonts.css', products.map((p) => `@font-face{font-family:"${p.previewFont}";src:url(${p.previewFontFile}) format("woff2");font-display:swap;font-weight:400;font-style:normal}`).join('\n') + '\n');
-out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(([p]) => `  <url><loc>${SITE}${p}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+const newestRelease = products.map((p) => p.updated || p.releaseDate).sort().pop();
+const lastmod = (path) => {
+  const f = products.find((p) => path === `/fonts/${p.slug}/`);
+  if (f) return f.updated || f.releaseDate;
+  if (path === '/' || path === '/shop/') return [newestRelease, site.pagesUpdated].sort().pop();
+  return site.pagesUpdated || newestRelease;
+};
+out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(([p]) => `  <url><loc>${SITE}${p}</loc><lastmod>${lastmod(p)}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
 console.log(`Built ${pages.length + 1} pages -> dist/ (${products.length} fonts)`);
 if (placeholders) console.warn('Note: catalog still contains placeholder products. Edit data/products.json.');
