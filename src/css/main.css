@@ -140,6 +140,9 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .tester-note{font-size:.875rem;color:var(--muted);margin:.75rem 0 0}
 .swatches{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
 .sw{width:2.25rem;height:2.25rem;border-radius:50%;border:1px solid var(--rule);padding:0;cursor:pointer;background:var(--c);position:relative}
+.sw[data-set="dark"]{display:none}
+[data-theme="dark"] .sw[data-set="light"]{display:none}
+[data-theme="dark"] .sw[data-set="dark"]{display:block}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bone),0 0 0 4px var(--ink)}
 .swatches input[type=color]{width:2.25rem;height:2.25rem;padding:5px;border:1px solid var(--rule);border-radius:50%;background:conic-gradient(#c0392b,#e0b030,#5b8c3a,#2e6fa8,#8a4fa0,#c0392b);cursor:pointer;-webkit-appearance:none;appearance:none}
 .swatches input[type=color]::-webkit-color-swatch-wrapper{padding:0}

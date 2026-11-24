@@ -62,9 +62,10 @@ const icons = {
   list: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg>',
 };
 
-const TEXT_COLORS = [['#1C1B18', 'Ink'], ['#4A5733', 'Olive'], ['#8A3B22', 'Rust'], ['#F2EEE3', 'Paper']];
-const BG_COLORS = [['#F2EEE3', 'Paper'], ['#DDE2CB', 'Sage'], ['#EBCFC0', 'Blush'], ['#1C1B18', 'Ink']];
-const swatches = (kind, list) => list.map(([v, n]) => `<button type="button" class="sw" style="--c:${v}" data-t="${kind}" data-value="${v}" aria-pressed="false" aria-label="${n}" title="${n}"></button>`).join('');
+// Two palettes that swap with the theme: same order, so the default is always first.
+const TEXT_COLORS = { light: [['#1C1B18', 'Ink'], ['#4A5733', 'Olive'], ['#8A3B22', 'Rust'], ['#F2EEE3', 'Paper']], dark: [['#F2EEE3', 'Paper'], ['#DDE2CB', 'Sage'], ['#EBCFC0', 'Blush'], ['#1C1B18', 'Ink']] };
+const BG_COLORS = { light: [['#F2EEE3', 'Paper'], ['#DDE2CB', 'Sage'], ['#EBCFC0', 'Blush'], ['#1C1B18', 'Ink']], dark: [['#1C1B18', 'Ink'], ['#2F3B24', 'Deep olive'], ['#4B2616', 'Deep rust'], ['#F2EEE3', 'Paper']] };
+const swatches = (kind, lists) => ['light', 'dark'].map((set) => lists[set].map(([v, n]) => `<button type="button" class="sw" style="--c:${v}" data-t="${kind}" data-set="${set}" data-value="${v}" aria-pressed="false" aria-label="${n}" title="${n}"></button>`).join('')).join('');
 
 function testerControls({ id, min = 24, max = 200, textLabel = 'Type your own words', placeholder = site.defaultTesterText, withText = true }) {
   return `<div class="tester" role="group" aria-label="Font tester controls">
