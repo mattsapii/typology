@@ -90,11 +90,13 @@
           "imageAlt": "Lempo on a hanging iron shop sign reading gembul burger club, big bites, happy belly"
         },
         {
-          "title": "Kids' book covers",
-          "text": "Titles that feel friendly from across the shelf.",
-          "words": "The Big Bubble",
-          "bg": "#EBC9C0",
-          "fg": "#1C1B18"
+          "title": "Tote bags and merch",
+          "text": "Canvas totes, tees and other things people carry or wear.",
+          "words": "burger club",
+          "bg": "#C8553D",
+          "fg": "#F1EDE3",
+          "image": "/images/mockups/lempo-tote-bag.webp",
+          "imageAlt": "Lempo printed on an orange canvas tote bag: gembul, burger club, big bites, happy belly"
         }
       ]
     },
