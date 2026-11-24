@@ -140,5 +140,13 @@
   "alternates": [],
   "alternateCount": 0,
   "hasKerning": false
+ },
+ "lempo": {
+  "glyphCount": 144,
+  "chars": "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§©«¬®¯°±²³¶·¹»¼½¾¿×÷ƒ˙˜˝–—‘’‚“”„†‡•…‰‹›⁄€™−",
+  "features": [],
+  "alternates": [],
+  "alternateCount": 0,
+  "hasKerning": true
  }
 }

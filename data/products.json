@@ -1,12 +1,30 @@
 {
   "_readme": "Edit this file to manage the catalog. Every entry below is a PLACEHOLDER: replace name, price, gumroadUrl, description and font files with your real data. Run `node build.mjs` afterwards. Remove the 'placeholder' flag when an entry is real.",
   "categories": [
-    { "slug": "signature", "name": "Signature" },
-    { "slug": "brush-script", "name": "Brush Script" },
-    { "slug": "casual-handwritten", "name": "Casual Handwritten" },
-    { "slug": "monoline", "name": "Monoline" },
-    { "slug": "elegant-script", "name": "Elegant Script" },
-    { "slug": "playful", "name": "Playful" }
+    {
+      "slug": "signature",
+      "name": "Signature"
+    },
+    {
+      "slug": "brush-script",
+      "name": "Brush Script"
+    },
+    {
+      "slug": "casual-handwritten",
+      "name": "Casual Handwritten"
+    },
+    {
+      "slug": "monoline",
+      "name": "Monoline"
+    },
+    {
+      "slug": "elegant-script",
+      "name": "Elegant Script"
+    },
+    {
+      "slug": "playful",
+      "name": "Playful"
+    }
   ],
   "products": [
     {
@@ -22,15 +40,34 @@
       "previewFontFile": "/fonts/previews/font-01.woff2",
       "productImage": "/images/products/sample-signature-og.png",
       "specimenImages": [
-        { "src": "/images/products/sample-signature-specimen-1.png", "alt": "Sample Signature set in a dark panel reading Made with Love" },
-        { "src": "/images/products/sample-signature-specimen-2.png", "alt": "Sample Signature specimen reading Every line has a pulse" }
+        {
+          "src": "/images/products/sample-signature-specimen-1.png",
+          "alt": "Sample Signature set in a dark panel reading Made with Love"
+        },
+        {
+          "src": "/images/products/sample-signature-specimen-2.png",
+          "alt": "Sample Signature specimen reading Every line has a pulse"
+        }
       ],
       "gumroadUrl": "https://example.gumroad.com/l/replace-sample-signature",
-      "fontStyles": ["Regular"],
-      "glyphInformation": { "count": 214, "alternates": "" , "note": "Latin subset used for web preview." },
-      "languageSupport": ["English", "Western European languages"],
+      "fontStyles": [
+        "Regular"
+      ],
+      "glyphInformation": {
+        "count": 214,
+        "alternates": "",
+        "note": "Latin subset used for web preview."
+      },
+      "languageSupport": [
+        "English",
+        "Western European languages"
+      ],
       "features": [],
-      "formats": ["OTF", "TTF", "WOFF2"],
+      "formats": [
+        "OTF",
+        "TTF",
+        "WOFF2"
+      ],
       "releaseDate": "2026-09-14",
       "popularity": 80,
       "featured": true,
@@ -49,19 +86,47 @@
       "previewFontFile": "/fonts/previews/font-02.woff2",
       "productImage": "/images/products/sample-casual-og.png",
       "specimenImages": [
-        { "src": "/images/products/sample-casual-specimen-1.png", "alt": "Sample Casual set in a dark panel reading Made with Love" },
-        { "src": "/images/products/sample-casual-specimen-2.png", "alt": "Sample Casual specimen reading Every line has a pulse" }
+        {
+          "src": "/images/products/sample-casual-specimen-1.png",
+          "alt": "Sample Casual set in a dark panel reading Made with Love"
+        },
+        {
+          "src": "/images/products/sample-casual-specimen-2.png",
+          "alt": "Sample Casual specimen reading Every line has a pulse"
+        }
       ],
       "gumroadUrl": "https://example.gumroad.com/l/replace-sample-casual",
-      "fontStyles": ["Regular"],
-      "glyphInformation": { "count": 352, "alternates": "", "note": "Latin subset used for web preview." },
-      "languageSupport": ["English", "Western European languages"],
-      "features": [
-        { "tag": "liga", "label": "Standard ligatures" },
-        { "tag": "calt", "label": "Contextual alternates" },
-        { "tag": "frac", "label": "Fractions" }
+      "fontStyles": [
+        "Regular"
       ],
-      "formats": ["OTF", "TTF", "WOFF2"],
+      "glyphInformation": {
+        "count": 352,
+        "alternates": "",
+        "note": "Latin subset used for web preview."
+      },
+      "languageSupport": [
+        "English",
+        "Western European languages"
+      ],
+      "features": [
+        {
+          "tag": "liga",
+          "label": "Standard ligatures"
+        },
+        {
+          "tag": "calt",
+          "label": "Contextual alternates"
+        },
+        {
+          "tag": "frac",
+          "label": "Fractions"
+        }
+      ],
+      "formats": [
+        "OTF",
+        "TTF",
+        "WOFF2"
+      ],
       "releaseDate": "2026-10-20",
       "popularity": 95,
       "featured": true,
@@ -80,19 +145,80 @@
       "previewFontFile": "/fonts/previews/font-03.woff2",
       "productImage": "/images/products/sample-brush-og.png",
       "specimenImages": [
-        { "src": "/images/products/sample-brush-specimen-1.png", "alt": "Sample Brush set in a dark panel reading Made with Love" },
-        { "src": "/images/products/sample-brush-specimen-2.png", "alt": "Sample Brush specimen reading Every line has a pulse" }
+        {
+          "src": "/images/products/sample-brush-specimen-1.png",
+          "alt": "Sample Brush set in a dark panel reading Made with Love"
+        },
+        {
+          "src": "/images/products/sample-brush-specimen-2.png",
+          "alt": "Sample Brush specimen reading Every line has a pulse"
+        }
       ],
       "gumroadUrl": "https://example.gumroad.com/l/replace-sample-brush",
-      "fontStyles": ["Regular"],
-      "glyphInformation": { "count": 217, "alternates": "", "note": "Latin subset used for web preview." },
-      "languageSupport": ["English", "Western European languages"],
+      "fontStyles": [
+        "Regular"
+      ],
+      "glyphInformation": {
+        "count": 217,
+        "alternates": "",
+        "note": "Latin subset used for web preview."
+      },
+      "languageSupport": [
+        "English",
+        "Western European languages"
+      ],
       "features": [],
-      "formats": ["OTF", "TTF", "WOFF2"],
+      "formats": [
+        "OTF",
+        "TTF",
+        "WOFF2"
+      ],
       "releaseDate": "2026-11-05",
       "popularity": 60,
       "featured": false,
       "bestSeller": true
+    },
+    {
+      "id": "ak-004",
+      "slug": "lempo",
+      "name": "Lempo",
+      "category": "playful",
+      "description": "Check out the Lempo font! It features a hefty style with a unique blend of bubbly and delightful curves. The font comes with uppercase letters from A to Z, as well as alternative versions of punctuation marks such as !, ?, and &. This font is perfect for creating striking logos, beautiful quotes, eye-catching artwork, captivating signs, powerful titles, and adding a personal touch to your designs. So go ahead and give it a try - you're sure to love it!",
+      "price": 29,
+      "currency": "USD",
+      "previewFont": "AK Preview 04",
+      "previewFontFile": "/fonts/previews/font-04.woff2",
+      "productImage": "/images/products/lempo-og.png",
+      "specimenImages": [
+        {
+          "src": "/images/products/lempo-specimen-1.png",
+          "alt": "Lempo set in a dark panel reading Made with Love"
+        },
+        {
+          "src": "/images/products/lempo-specimen-2.png",
+          "alt": "Lempo specimen reading Every line has a pulse"
+        }
+      ],
+      "gumroadUrl": "https://typology.gumroad.com/l/lempo-fancy-bold-font?layout=profile",
+      "fontStyles": [
+        "Regular"
+      ],
+      "glyphInformation": {
+        "count": 144,
+        "alternates": "",
+        "note": ""
+      },
+      "languageSupport": [
+        "English"
+      ],
+      "features": [],
+      "formats": [
+        "TTF"
+      ],
+      "releaseDate": "2026-12-24",
+      "popularity": 50,
+      "featured": true,
+      "bestSeller": false
     }
   ]
 }
