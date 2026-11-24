@@ -71,7 +71,7 @@ function testerControls({ id, min = 24, max = 200, textLabel = 'Type your own wo
     <button type="button" data-t="align" data-value="left" aria-pressed="true" aria-label="Align left">${icons.left}</button>
     <button type="button" data-t="align" data-value="center" aria-pressed="false" aria-label="Align center">${icons.center}</button>
     <button type="button" data-t="align" data-value="right" aria-pressed="false" aria-label="Align right">${icons.right}</button></div></div>
-  <div class="field"><span class="label">&nbsp;</span><button type="button" class="btn ghost" data-t="reset">Reset controls</button></div>
+  <div class="field t-reset"><button type="button" class="btn link-btn" data-t="reset">Reset</button></div>
 </div>`;
 }
 
@@ -83,6 +83,16 @@ function card(p, { near = false } = {}) {
 </article>`;
 }
 
+function fontRow(p, { near = false } = {}) {
+  return `<article class="frow" data-card data-cat="${p.category}">
+  <header class="frow-head">
+    <div class="frow-name"><h3><a class="frow-link" href="/fonts/${p.slug}/">${esc(p.name)}</a></h3><span class="badge">${esc(catName(p.category))}</span></div>
+    <div class="frow-buy"><span class="price">${money(p)}</span><a class="link" href="/fonts/${p.slug}/" aria-label="Details for ${esc(p.name)}">Details</a><a class="btn sm" href="${esc(p.gumroadUrl)}" target="_blank" rel="noopener">Buy ${esc(p.name)}<span class="sr"> on Gumroad (opens in a new tab)</span></a></div>
+  </header>
+  <div class="specimen${near ? ' is-near' : ''}" style="--ff:'${esc(p.previewFont)}'" data-default="${esc(p.name)}"><span data-sp-text>${esc(p.name)}</span></div>
+</article>`;
+}
+
 const nav = [['/shop/', 'Fonts'], ['/licensing/', 'Licensing'], ['/about/', 'About'], ['/faq/', 'FAQ'], ['/contact/', 'Contact']];
 const header = (cur) => `<a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="wrap"><a class="brand" href="/" aria-label="${site.name} home">${site.name}</a>
@@ -91,7 +101,7 @@ const header = (cur) => `<a class="skip" href="#main">Skip to content</a>
 const footer = () => `<footer class="site-foot"><div class="wrap">
 <div class="foot-grid">
   <div class="foot-brand"><a class="brand" href="/">${site.name}</a><p>${esc(site.tagline)}. Every font is previewed live before you buy.</p></div>
-  <div><h2>Fonts</h2><ul><li><a href="/shop/">All fonts</a></li>${cats.map((c) => `<li><a href="/shop/?category=${c.slug}">${esc(c.name)}</a></li>`).join('')}</ul></div>
+  <div><h2>Fonts</h2><ul><li><a href="/shop/">All fonts</a></li>${cats.filter((c) => products.some((p) => p.category === c.slug)).map((c) => `<li><a href="/shop/?category=${c.slug}">${esc(c.name)}</a></li>`).join('')}</ul></div>
   <div><h2>Studio</h2><ul><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/faq/">FAQ</a></li>${site.instagram ? `<li><a href="${esc(site.instagram)}" rel="noopener">Instagram</a></li>` : ''}</ul></div>
   <div><h2>Legal</h2><ul><li><a href="/licensing/">Licensing</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li></ul></div>
 </div>
@@ -150,67 +160,53 @@ const add = (p, html) => pages.push([p, html]);
 
 // HOME
 {
-  const featured = products.filter((p) => p.featured);
-  const newest = [...products].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate)).slice(0, 4);
-  const best = products.filter((p) => p.bestSeller);
   const count = (c) => products.filter((p) => p.category === c).length;
-  const gallery = products.slice(0, 6);
-  const showcase = products.flatMap((p) => p.specimenImages.map((i) => ({ ...i, name: p.name, slug: p.slug }))).slice(0, 6);
+  const usedCats = cats.filter((c) => count(c.slug));
+  const soonCats = cats.filter((c) => !count(c.slug));
+  const list = [...products].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+  const newest = list[0];
+  const heroSvg = read('src/images/hero-your-words.svg').replace('<svg ', '<svg class="hero-svg" aria-hidden="true" focusable="false" ');
+  const soonText = soonCats.length ? `${soonCats.map((c) => c.name.toLowerCase().replace(' handwritten', '')).join(', ').replace(/, ([^,]*)$/, ' and $1')} fonts are on the way.` : '';
 
   const body = `
 <section class="hero" aria-labelledby="hero-h"><div class="wrap">
-  <h1 id="hero-h" class="sr">Handwritten fonts by ${site.name}</h1>
-  <div class="hero-specimen is-near specimen-hero" style="--ff:'${esc(heroProduct.previewFont)}';font-family:'${esc(heroProduct.previewFont)}',var(--ui)" aria-hidden="true">Your words, handwritten</div>
-  <div class="hero-grid">
+  <h1 id="hero-h" class="sr">Your words, handwritten. Fonts by ${site.name}</h1>
+  <figure class="hero-art">${heroSvg}<figcaption>${esc(site.heroCaption || '')}</figcaption></figure>
+  <div class="hero-intro">
     <p>Type your brand name, a quote or a wedding date and see it in every ${site.name} font before you pay. Signatures, brush scripts, monolines and playful lettering from an independent foundry.</p>
-    <div><div class="hero-cta"><a class="btn lg" href="#tester">Try your words</a><a class="btn lg ghost" href="/shop/">Browse all fonts</a></div>
-    <p class="hero-note">Hero set in ${esc(heroProduct.name)}.</p></div>
+    <div class="hero-cta"><a class="btn" href="#tester">Try your words</a><a class="btn ghost" href="/shop/">Browse all fonts</a></div>
   </div>
 </div></section>
 
 <section class="section" id="tester" aria-labelledby="tester-h"><div class="wrap">
-  <div class="sec-head"><h2 id="tester-h">Test every font with your own words</h2><p>Type once. Every specimen below changes, set in each font's real file.</p></div>
+  <div class="sec-head stack"><h2 id="tester-h">Test every font with your own words</h2><p>Type once. Every specimen below changes, set in each font's real file.</p></div>
   ${testerControls({ id: 'home' })}
   <p class="tester-note" id="tester-note">Leave the field empty to see each font's name. Your settings carry over to the shop and font pages.</p>
-  <div class="chips" role="group" aria-label="Filter specimens by category" style="margin:1.5rem 0">
-    <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
-    ${cats.map((c) => `<button type="button" class="chip" data-filter="${c.slug}" aria-pressed="false">${esc(c.name)}</button>`).join('')}
+  <div class="chip-row">
+    <div class="chips" role="group" aria-label="Filter fonts by category">
+      <button type="button" class="chip" data-filter="all" aria-pressed="true">All<span class="n">${products.length}</span></button>
+      ${usedCats.map((c) => `<button type="button" class="chip" data-filter="${c.slug}" aria-pressed="false">${esc(c.name)}<span class="n">${count(c.slug)}</span></button>`).join('')}
+    </div>
+    ${soonText ? `<p class="muted small">${esc(soonText.charAt(0).toUpperCase() + soonText.slice(1))}</p>` : ''}
   </div>
-  <div class="cards list" data-gallery>${gallery.map((p, i) => card(p, { near: i === 0 })).join('')}</div>
-  <div class="empty" data-gallery-empty hidden><h3>No fonts in this category yet</h3><p>Choose another category, or browse the full catalog.</p><a class="btn" href="/shop/">See all fonts</a></div>
-  <p style="margin-top:1.5rem"><a class="link" href="/shop/">Browse the full catalog</a></p>
+  <div class="frows" data-gallery>${list.slice(0, 8).map((p, i) => fontRow(p, { near: i === 0 })).join('')}</div>
+  ${products.length > 8 ? `<p style="margin-top:1.5rem"><a class="link" href="/shop/">See all ${products.length} fonts</a></p>` : `<div class="soon-row"><p>More handwritten fonts are on the way.</p></div>`}
 </div></section>
 
-${featured.length ? `<section class="section" aria-labelledby="feat-h"><div class="wrap">
-  <div class="sec-head"><h2 id="feat-h">Featured typefaces</h2><a class="link" href="/shop/">All fonts</a></div>
-  <div class="featured-grid${featured.length === 1 ? ' one' : ''}">${featured.map((p) => card(p)).join('')}</div>
+${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
+  <div class="sec-head stack"><h2 id="show-h">${esc(newest.name)} at work</h2><p>Our newest font, set large.</p></div>
+  <div class="spec-panels" style="font-family:'${esc(newest.previewFont)}',var(--ui)">
+    <div class="spec-panel dark"><p>Made with Love</p></div>
+    <div class="spec-panel sage"><p>Every line<br>has a pulse</p></div>
+  </div>
+  <p class="spec-caption"><span>${esc(newest.name)}, ${esc(catName(newest.category))}</span><a class="link" href="/fonts/${newest.slug}/">See ${esc(newest.name)}</a></p>
 </div></section>` : ''}
 
-<section class="section" aria-labelledby="cat-h"><div class="wrap">
-  <div class="sec-head"><h2 id="cat-h">Browse by category</h2><p>Six kinds of handwriting, from fast signatures to playful lettering.</p></div>
-  <ul class="cat-list">${cats.map((c) => count(c.slug) ? `<li><a href="/shop/?category=${c.slug}"><span>${esc(c.name)}</span><span class="count">${count(c.slug)} ${count(c.slug) === 1 ? 'font' : 'fonts'}</span></a></li>` : `<li><span class="soon"><span>${esc(c.name)}</span><span class="count">Coming soon</span></span></li>`).join('')}</ul>
-</div></section>
-
-<section class="section" aria-labelledby="new-h"><div class="wrap">
-  <div class="sec-head"><h2 id="new-h">New releases</h2><a class="link" href="/shop/?sort=newest">See newest first</a></div>
-  <div class="cards">${newest.map((p) => card(p)).join('')}</div>
-</div></section>
-
-${best.length ? `<section class="section" aria-labelledby="best-h"><div class="wrap">
-  <div class="sec-head"><h2 id="best-h">Best sellers</h2><a class="link" href="/shop/?sort=popular">See most popular</a></div>
-  <div class="cards">${best.map((p) => card(p)).join('')}</div>
-</div></section>` : ''}
-
-<section class="section" aria-labelledby="show-h"><div class="wrap">
-  <div class="sec-head"><h2 id="show-h">Specimens</h2><p>The fonts at work, set large.</p></div>
-  <div class="showcase">${showcase.map((s) => `<figure><a href="/fonts/${s.slug}/"><img src="${s.src}" alt="${esc(s.alt)}" width="1200" height="800" loading="lazy" decoding="async"></a><figcaption>${esc(s.name)}</figcaption></figure>`).join('')}</div>
-</div></section>
-
-<section class="section" aria-labelledby="about-h"><div class="wrap split">
-  <h2 id="about-h" style="font-size:clamp(1.75rem,3.4vw,2.75rem)">About ${site.name}</h2>
-  <div class="prose"><p class="lede">We make handwritten fonts that keep the irregularity of a real hand and still set cleanly on screen and in print.</p>
-  <p>${site.name} is an independent foundry. Each typeface is drawn, spaced and kerned in-house, then checked in real words and sentences, not only in alphabets.</p>
-  <p><a class="link" href="/about/">Read more about the studio</a></p></div>
+<section class="section" aria-labelledby="about-h"><div class="wrap about-one">
+  <h2 id="about-h">About ${site.name}</h2>
+  <p class="lede">We make handwritten fonts that keep the irregularity of a real hand and still set cleanly on screen and in print.</p>
+  <p class="muted">${site.name} is an independent foundry. Each typeface is drawn, spaced and kerned in-house, then checked in real words and sentences, not only in alphabets.</p>
+  <p><a class="link" href="/about/">Read more about the studio</a></p>
 </div></section>
 `;
 
@@ -218,7 +214,7 @@ ${best.length ? `<section class="section" aria-labelledby="best-h"><div class="w
     title: `${site.name} | Handwritten fonts, signatures and brush scripts`,
     desc: 'Independent handwritten font foundry. Test signature fonts, brush scripts, casual handwriting and elegant scripts with your own text, then license instantly.',
     path: '/', cur: '/', body, scripts: ['home'],
-    preload: [heroProduct.previewFontFile],
+    preload: newest ? [newest.previewFontFile] : [],
     ld: [orgLD, { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: SITE }],
   }));
 }
@@ -320,8 +316,8 @@ for (const p of products) {
   <section class="d-section" aria-labelledby="buy-h"><h2 id="buy-h">Pricing and purchase</h2>
     <div class="price-box"><div><div class="price">${money(p)}</div><p class="muted" style="margin:.25rem 0 0">Pay once on Gumroad. Download the files right after checkout.</p></div>${buy(`Buy ${esc(p.name)}`)}</div>
   </section>
-  <section class="d-section related" aria-labelledby="rel-h"><h2 id="rel-h">Related fonts</h2>
-    <div class="cards">${related.map((x) => card(x)).join('')}</div>
+  <section class="d-section related" aria-labelledby="rel-h"><h2 id="rel-h">${related.length ? 'Related fonts' : 'More fonts'}</h2>
+    ${related.length ? `<div class="cards">${related.map((x) => card(x)).join('')}</div>` : `<div class="soon-row"><p>${esc(p.name)} is our first release. More handwritten fonts are on the way.</p><a class="link" href="/shop/">Browse all fonts</a></div>`}
   </section>
   <div style="height:3rem"></div>
 </div>

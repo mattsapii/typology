@@ -247,3 +247,48 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .related .cards{grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr))}
 .callout{padding:1rem 1.25rem;background:var(--bone);border-left:3px solid var(--ink);max-width:42rem}
 .related{--sp-size:56}
+
+/* ---------- Home revamp v1 (Figma: Typology components) ---------- */
+.btn{min-height:2.75rem;padding:.6rem 1.15rem;font-size:.9375rem}
+.btn.sm{min-height:2.25rem;padding:.4rem .9rem;font-size:.875rem}
+.link-btn{background:none;border:0;color:var(--ink);text-decoration:underline;text-underline-offset:.2em;padding:.5rem 0;min-height:2.75rem;font-weight:500}
+.link-btn:hover{background:none;color:var(--olive)}
+.badge{display:inline-flex;align-items:center;padding:.15rem .6rem;border-radius:999px;background:var(--bone);color:var(--muted);font-size:.8125rem;font-weight:500;line-height:1.5}
+.hero-art{margin:0 0 clamp(1.5rem,3vw,2.5rem);color:var(--ink)}
+.hero-svg{display:block;width:100%;max-width:1352px;height:auto}
+.hero-art figcaption{font-size:.875rem;color:var(--muted);margin-top:.5rem}
+.hero-intro{max-width:40rem}
+.hero-intro p{font-size:1.25rem;line-height:1.5;margin-bottom:1.75rem}
+.hero .hero-cta{gap:.75rem}
+.sec-head.stack{flex-direction:column;align-items:flex-start;gap:.6rem}
+.sec-head.stack p{max-width:none}
+.tester .t-text{grid-column:1/-1}
+.tester .t-reset{justify-self:end;align-self:end}
+.chip-row{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem;margin:1.5rem 0}
+.frows{display:grid;gap:1.25rem}
+.frow{position:relative;border:1px solid var(--line);background:var(--paper)}
+.frow:hover{border-color:var(--ink)}
+.frow-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem 1rem;padding:1.1rem 1.5rem 0}
+.frow-name{display:flex;align-items:center;gap:.75rem}
+.frow-name h3{font-size:1.125rem;font-weight:500;letter-spacing:-.01em}
+.frow-link{text-decoration:none}
+.frow-link::after{content:"";position:absolute;inset:0;z-index:1}
+.frow-link:focus-visible{outline:none}
+.frow:has(.frow-link:focus-visible){outline:2px solid var(--olive);outline-offset:3px}
+.frow-buy{display:flex;align-items:center;gap:1rem;position:relative;z-index:2}
+.frow-buy .price{font-size:1.125rem}
+.frow .specimen{--sp-min:9rem;padding:.15em 1.5rem .35em}
+.soon-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.25rem;padding:1.35rem 1.5rem;border:1px dashed var(--line);color:var(--muted)}
+.soon-row p{margin:0}
+.spec-panels{display:grid;gap:1rem;grid-template-columns:1fr}
+@media (min-width:800px){.spec-panels{grid-template-columns:1fr 1fr}}
+.spec-panel{aspect-ratio:668/440;display:grid;place-items:center;padding:2rem;text-align:center;font-size:clamp(2.5rem,4.6vw,4rem);line-height:1.1}
+.spec-panel p{margin:0}
+.spec-panel.dark{background:var(--ink);color:var(--paper)}
+.spec-panel.sage{background:var(--olive-soft);color:var(--ink)}
+.spec-caption{display:flex;gap:1rem;align-items:center;margin-top:1rem;font-size:.875rem;color:var(--muted)}
+.about-one h2{font-size:clamp(1.75rem,3.4vw,2.75rem);margin-bottom:1.25rem}
+.about-one .lede{max-width:52rem;margin-bottom:1.25rem}
+.about-one .muted{max-width:42rem;font-size:1.0625rem}
+@media (max-width:640px){.frow-head{padding:1rem 1rem 0}.frow .specimen{padding:.15em 1rem .35em}.frow-buy{width:100%;justify-content:space-between}}
+@media (min-width:1100px){.tester{grid-template-columns:repeat(4,minmax(0,1fr)) auto}.d-tools .tester,.preview-panel .tester{grid-template-columns:repeat(4,minmax(0,1fr)) auto}}
