@@ -1,4 +1,4 @@
-# Typology: toko font handwritten
+# Lettermoss: toko font handwritten (dulu Typology)
 
 Situs statis tanpa dependensi untuk toko font handwritten. Katalog dibaca dari JSON, setiap font punya halaman sendiri (HTML statis, bagus untuk SEO), dan pembelian lewat Gumroad. Hosting: Cloudflare Pages.
 
@@ -53,3 +53,11 @@ Isi `bestFor` di `data/products.json` (3 kartu per font: dua berdampingan, kartu
 - `title`, `text`: nama kegunaan dan satu kalimat penjelasan.
 - `words`: contoh tulisan yang tampil di kartu dan masuk ke tester saat "Try these words" diklik.
 - `bg`, `fg`: warna latar dan tulisan (hex, misalnya `#1C1B18`). - `image` (opsional): foto mockup, misalnya `/images/mockups/lempo-cafe.jpg` (simpan di `src/images/mockups/`, rasio 3:2, lebar 1200 px untuk kartu kecil dan 2000 px untuk kartu lebar). Jika diisi, foto menggantikan contoh tulisan. `imageAlt` untuk teks alternatif.
+
+## Brand Lettermoss
+
+- Nama, tagline dan slogan ada di `data/site.json` (`name`, `tagline`, `slogan`).
+- Logo di header dan footer: simbol SVG inline (konstanta `LOGO_D` di `build.mjs`) + wordmark "lettermoss" (Instrument Sans SemiBold). Warnanya mengikuti tema (Ink di mode terang, Paper di mode gelap).
+- Ikon: `public/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png`. Gambar share default: `public/og-image.png` (1200 × 630).
+- Tombol utama memakai warna Moss (`--olive`), sesuai brand guidelines v2.
+- Belum diganti (menunggu domain baru): `url` di `data/site.json`, link Gumroad `typology.gumroad.com`, nama proyek Cloudflare `typology` di `wrangler.toml`.

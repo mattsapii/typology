@@ -1,4 +1,4 @@
-// Typology static site generator. No dependencies. Run: node build.mjs  ->  dist/
+// Lettermoss static site generator. No dependencies. Run: node build.mjs  ->  dist/
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,7 +41,6 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const json = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 const hash = (s) => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) >>> 0; return h.toString(36); };
 const ver = hash(read('src/css/main.css') + fs.readdirSync(path.join(ROOT, 'src/js')).map((f) => read('src/js/' + f)).join(''));
-const heroProduct = products.find((p) => p.slug === site.heroSlug) || products.find((p) => p.featured) || products[0];
 const placeholders = products.some((p) => p.placeholder);
 
 const FEATURE_LABELS = { liga: 'Standard ligatures', calt: 'Contextual alternates', frac: 'Fractions', swsh: 'Swashes', salt: 'Stylistic alternates', dlig: 'Discretionary ligatures', onum: 'Oldstyle figures', init: 'Initial forms', fina: 'Terminal forms', medi: 'Medial forms', locl: 'Localized forms', ccmp: 'Glyph composition', case: 'Case-sensitive forms', ordn: 'Ordinals' };
@@ -121,15 +120,18 @@ function fontRow(p, { near = false } = {}) {
 </article>`;
 }
 
+const LOGO_D = 'M231.326 22.0469C233.936 21.7469 236.257 21.9771 238.417 22.3271C240.587 22.6771 243.617 22.7867 245.767 24.3564C247.907 25.9264 251.056 29.3969 252.696 32.7969C254.336 36.1969 255.726 39.7069 256.696 47.0469C258.146 57.9569 261.026 94.0664 262.356 105.517C263.396 114.537 265.547 123.387 265.547 123.387C265.572 123.389 266.684 123.479 267.356 122.827C268.676 121.537 271.186 119.087 274.326 114.797C279.646 107.517 296.776 82.0474 302.856 74.3271C307.896 67.9371 310.527 66.5064 314.887 63.3564C319.247 60.2064 327.397 55.1771 331.917 53.3271C336.437 51.4772 341.717 51.0969 345.017 51.0469C348.307 50.9969 351.667 52.1863 353.887 52.9863C356.107 53.7763 357.906 54.5867 359.826 56.3564C361.746 58.1264 365.226 61.2069 366.696 64.7969C368.176 68.3869 369.557 72.4069 369.637 80.2969C369.737 89.687 368.246 116.597 367.356 127.387C366.466 138.177 366.786 140.067 363.696 152.236C360.456 165.056 350.046 199.816 345.696 212.856C341.346 225.896 338.746 230.727 334.696 239.167C330.646 247.617 323.856 260.077 318.696 269.167C313.546 278.267 304.736 292.957 300.326 299.797C295.916 306.637 293.516 309.987 289.326 314.797C285.126 319.597 275.976 328.547 272.356 331.827C269.157 334.727 267.286 335.547 265.196 336.667C263.106 337.797 261.387 338.737 258.417 339.327C255.447 339.917 249.347 340.606 245.387 340.606C241.437 340.606 235.777 340.217 232.047 339.327C228.317 338.437 223.307 336.397 220.517 334.667C217.717 332.937 214.817 329.767 213.387 327.797C211.967 325.827 211.507 323.607 211.017 321.547C210.517 319.487 209.876 317.437 210.076 314.047C210.276 310.657 210.367 305.987 212.356 298.957C214.346 291.917 221.706 273.807 223.356 267.137C224.876 261.007 225.156 258.567 224.856 255.827C224.556 253.087 222.836 250.947 221.356 249.827C219.866 248.707 216.686 247.177 213.446 247.047C210.216 246.917 205.747 246.387 199.767 247.987C193.787 249.577 179.356 256.117 173.576 257.667C167.796 259.227 163.936 258.477 161.236 258.327C158.527 258.177 157.896 257.797 155.517 256.667C153.137 255.547 147.986 252.857 145.356 250.827C142.737 248.797 139.557 245.797 138.017 243.167C136.467 240.537 135.026 237.987 135.076 233.297C135.126 228.607 135.466 222.327 138.356 211.887C142.446 197.107 157.906 150.027 162.356 134.767C165.896 122.617 167.387 117.857 169.637 109.327C171.887 100.797 176.606 82.9173 179.356 74.3271C182.106 65.7474 182.707 63.4619 184.856 58.3271C187.006 53.1925 191.975 44.858 193.356 43.3271C194.737 41.7971 200.517 35.2064 204.887 32.3564C209.257 29.5065 217.016 25.8772 220.986 24.3271C224.946 22.7772 228.706 22.3469 231.326 22.0469ZM82.0166 0.046875C85.9366 -0.20311 91.787 0.587153 95.667 1.32715C99.5468 2.06712 103.067 2.87642 107.887 4.98633C112.707 7.08629 120.106 10.2766 127.826 15.3564C135.546 20.4364 153.886 34.4072 159.356 38.8271C162.396 41.2869 162.926 42.5667 164.326 44.8564C165.726 47.1464 167.906 50.8765 168.696 54.1064C169.496 57.3464 169.937 62.307 169.637 66.417C169.337 70.5369 169.016 74.197 166.696 81.5469C159.906 103.067 131.346 186.387 124.356 209.887C120.266 223.627 120.376 232.257 120.076 238.237C119.786 244.077 120.956 246.317 122.356 249.707C123.757 253.087 127.357 258.307 129.387 260.797C131.417 263.287 133.727 264.967 135.887 266.297C138.057 267.627 139.756 269.067 143.826 269.667C147.896 270.277 154.707 271.467 163.047 270.327C171.377 269.187 193.017 263.197 199.387 262.047C202.417 261.497 203.877 261.947 205.517 262.667C207.156 263.397 209.406 265.506 210.326 266.856C211.246 268.206 211.537 269.877 211.637 271.667C211.737 273.457 212.207 275.427 211.017 278.797C209.467 283.167 204.806 295.317 201.326 300.797C197.846 306.267 191.516 312.367 187.826 315.297C184.136 318.227 180.256 319.377 176.736 320.327C173.206 321.277 170.556 321.566 164.326 321.606C157.786 321.646 148.546 321.546 133.137 320.606C117.727 319.666 75.5764 316.567 61.6064 315.327C50.7364 314.357 45.1963 313.327 39.9863 312.327C34.7664 311.327 30.1362 309.877 26.8262 308.667C23.5063 307.467 20.5066 306.227 17.8867 304.297C15.2768 302.367 11.7667 299.307 9.38672 295.797C7.00672 292.277 3.4066 286.656 2.0166 280.856C0.616649 275.056 -0.273821 265.956 0.0761719 257.106C0.426218 248.266 2.56647 232.537 4.35645 221.887C6.14644 211.237 7.78662 203.906 12.0166 186.106C18.4667 158.956 41.1565 65.3766 47.3564 40.8867C49.6864 31.6968 51.5564 27.2467 53.3564 22.8867C55.1564 18.5367 56.9667 14.8464 59.3867 11.8564C61.8068 8.87647 66.1167 4.75626 69.5166 2.98633C72.9066 1.20641 78.0867 0.296869 82.0166 0.046875Z';
+const logo = (label) => `<a class="brand" href="/"${label ? ` aria-label="${site.name} home"` : ''}><svg class="brand-mark" viewBox="0 0 370 341" aria-hidden="true" focusable="false"><path fill="currentColor" d="${LOGO_D}"/></svg><span class="brand-word">lettermoss</span></a>`;
+
 const nav = [['/shop/', 'Fonts'], ['/licensing/', 'Licensing'], ['/about/', 'About'], ['/faq/', 'FAQ'], ['/contact/', 'Contact']];
 const header = (cur) => `<a class="skip" href="#main">Skip to content</a>
-<header class="site-head"><div class="wrap"><a class="brand" href="/" aria-label="${site.name} home">${site.name}</a>
+<header class="site-head"><div class="wrap">${logo(true)}
 <div class="head-right"><nav class="nav" aria-label="Main">${nav.map(([h, t]) => `<a href="${h}"${cur === h ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</nav>
 <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 12.5A7 7 0 0 1 7.5 3.5a7 7 0 1 0 9 9Z"/></svg><svg class="sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.5"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M4 16l1.4-1.4M14.6 5.4 16 4"/></svg></button></div></div></header>`;
 
 const footer = () => `<footer class="site-foot"><div class="wrap">
 <div class="foot-grid">
-  <div class="foot-brand"><a class="brand" href="/">${site.name}</a><p>${esc(site.tagline)}. Every font is previewed live before you buy.</p></div>
+  <div class="foot-brand">${logo(false)}<p>${esc(site.slogan)} ${esc(site.tagline)}, previewed live before you buy.</p></div>
   <div><h2>Fonts</h2><ul><li><a href="/shop/">All fonts</a></li>${cats.filter((c) => products.some((p) => p.category === c.slug)).map((c) => `<li><a href="/shop/?category=${c.slug}">${esc(c.name)}</a></li>`).join('')}</ul></div>
   <div><h2>Studio</h2><ul><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/faq/">FAQ</a></li>${site.instagram ? `<li><a href="${esc(site.instagram)}" rel="noopener">Instagram</a></li>` : ''}</ul></div>
   <div><h2>Legal</h2><ul><li><a href="/licensing/">Licensing</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li></ul></div>
@@ -138,7 +140,7 @@ const footer = () => `<footer class="site-foot"><div class="wrap">
 
 function layout({ title, desc, path: p, cur = '', body, ld = [], scripts = [], preload = [], ogImage, ogType = 'website', noindex = false, head = '' }) {
   const url = SITE + p;
-  const img = SITE + (ogImage || (heroProduct ? heroProduct.productImage : '/favicon.svg'));
+  const img = SITE + (ogImage || '/og-image.png');
   const fullTitle = p === '/' ? title : `${title} | ${site.name}`;
   return `<!doctype html>
 <html lang="en" class="no-js">
@@ -158,6 +160,8 @@ ${noindex ? '<meta name="robots" content="noindex">' : ''}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F2EEE3">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/ui/instrument-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/ui/instrument-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${preload.map((f) => `<link rel="preload" href="${f}" as="font" type="font/woff2" crossorigin>`).join('\n')}
@@ -181,7 +185,7 @@ ${scripts.map((s) => `<script type="module" src="/js/${s}.js?v=${ver}"></script>
 }
 
 const breadcrumbLD = (items) => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map(([n, u], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: SITE + u })) });
-const orgLD = { '@context': 'https://schema.org', '@type': 'Organization', name: site.name, url: SITE, logo: SITE + '/favicon.svg', description: site.tagline };
+const orgLD = { '@context': 'https://schema.org', '@type': 'Organization', name: site.name, url: SITE, logo: SITE + '/icon-512.png', slogan: site.slogan, description: site.tagline };
 
 // ---------- pages ----------
 const pages = [];
@@ -202,7 +206,7 @@ const add = (p, html) => pages.push([p, html]);
   <h1 id="hero-h" class="sr">Your words, handwritten: bubble, retro and handwritten fonts you can test before you buy</h1>
   <figure class="hero-art">${heroSvg}<figcaption>${esc(site.heroCaption || '')}</figcaption></figure>
   <div class="hero-intro">
-    <p>Type your brand name, a quote or a wedding date and see it in every ${site.name} font before you pay. Signatures, brush scripts, monolines and playful lettering from an independent foundry.</p>
+    <p>Type your brand name, a quote or a wedding date and see it in every ${site.name} font before you pay. Handwritten, playful and bubble lettering from a small, independent foundry.</p>
     <div class="hero-cta"><a class="btn" href="#tester">Try your words</a><a class="btn ghost" href="/shop/">Browse all fonts</a></div>
   </div>
 </div></section>
@@ -233,8 +237,8 @@ ${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
 
 <section class="section" aria-labelledby="about-h"><div class="wrap about-one">
   <h2 id="about-h">About ${site.name}</h2>
-  <p class="lede">We make handwritten fonts that keep the irregularity of a real hand and still set cleanly on screen and in print.</p>
-  <p class="muted">${site.name} is an independent foundry. Each typeface is drawn, spaced and kerned in-house, then checked in real words and sentences, not only in alphabets.</p>
+  <p class="lede">We make handwritten fonts that keep the wobble of a real hand and still set cleanly on screen and in print.</p>
+  <p class="muted">${site.name} is a small, independent foundry. Like moss, we grow slowly and together: every font is drawn, spaced and kerned in-house, then tested in real words and sentences, not only in alphabets.</p>
   <p><a class="link" href="/about/">Read more about the studio</a></p>
 </div></section>
 `;
@@ -284,7 +288,7 @@ ${newest ? `<section class="section" aria-labelledby="show-h"><div class="wrap">
     title: 'All fonts: bubble, retro and handwritten',
     desc: `Browse every ${site.name} font: bubble, retro and handwritten display fonts. Type your words once and compare them side by side. Licenses from ${usd(LIC[0].price)}.`,
     path: '/shop/', cur: '/shop/', body, scripts: ['shop'],
-    ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/']]), { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Typology fonts', itemListElement: list.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/fonts/${p.slug}/`, name: p.name })) }],
+    ld: [breadcrumbLD([['Home', '/'], ['Fonts', '/shop/']]), { '@context': 'https://schema.org', '@type': 'ItemList', name: `${site.name} fonts`, itemListElement: list.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/fonts/${p.slug}/`, name: p.name })) }],
   }));
 }
 
@@ -418,11 +422,12 @@ add('/licensing/', layout({
 }));
 
 add('/about/', layout({
-  title: 'About', desc: `${site.name} is an independent foundry that designs handwritten fonts: signatures, brush scripts, casual handwriting and monoline lettering.`, path: '/about/', cur: '/about/',
+  title: 'About', desc: `${site.name} is a small, independent foundry for handwritten fonts: playful, bubble and casual lettering you can test with your own words. ${site.slogan}`, path: '/about/', cur: '/about/',
   ld: [breadcrumbLD([['Home', '/'], ['About', '/about/']]), orgLD],
   body: `<div class="wrap page-title"><h1>About ${site.name}</h1></div>
-<div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)"><div class="split"><p class="lede">${site.name} is an independent foundry for handwritten typefaces.</p>
-<div class="prose"><p>Each font starts as real handwriting. We draw the letters, build the connections, then spend most of the time on spacing and kerning, because a handwritten font only feels human when the rhythm between letters is right.</p>
+<div class="wrap" style="padding-bottom:clamp(3rem,7vw,6rem)"><div class="split"><p class="lede">${site.name} is a small, independent foundry for handwritten typefaces. ${esc(site.slogan)}</p>
+<div class="prose"><p>The name comes from moss. On its own, a clump of moss is small. Given time, clumps grow into each other and cover a whole stone, like a little island. That is how we want to grow: font by font, together with the people who write with them.</p>
+<p>Each font starts as real handwriting. We draw the letters, build the connections, then spend most of the time on spacing and kerning, because a handwritten font only feels human when the rhythm between letters is right.</p>
 <p>We test every release in whole words and sentences, in the same live tester you can use on this site, so you see how a font behaves with your text before you buy.</p>
 <p>Fonts are sold directly through Gumroad. You pay once, download the files and use them under a clear license.</p>
 <p><a class="btn" href="/shop/">Explore fonts</a></p></div></div></div>`,
