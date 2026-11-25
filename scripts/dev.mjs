@@ -10,4 +10,4 @@ http.createServer((req, res) => {
   if (!fs.existsSync(f)) { res.writeHead(404, {'content-type':'text/html'}); return res.end(fs.readFileSync(path.join(root,'404.html'))); }
   res.writeHead(200, { 'content-type': types[path.extname(f)] || 'application/octet-stream' });
   fs.createReadStream(f).pipe(res);
-}).listen(port, () => console.log('Typology preview on http://localhost:' + port));
+}).listen(port, () => console.log('Lettermoss preview on http://localhost:' + port));

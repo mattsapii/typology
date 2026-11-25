@@ -1,6 +1,6 @@
-/* Typology — design system
-   Palette: paper #F2EEE3, bone #E8E3D3, ink #1C1B18, olive #4A5733, line #D3CCBA, muted #625D52
-   Type: Instrument Sans for the interface; the handwritten fonts sold by Typology are the visual asset. */
+/* Lettermoss — design system
+   Palette (brand guidelines v2): paper #F2EEE3, bone #E8E3D3, ink #1C1B18, moss #4A5733 (var --olive), line #D3CCBA, muted #625D52
+   Type: Instrument Sans for the interface; the handwritten fonts sold by Lettermoss are the visual asset. */
 
 @font-face{font-family:"Instrument Sans";font-weight:400;font-style:normal;font-display:swap;src:url(/fonts/ui/instrument-sans-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Instrument Sans";font-weight:500;font-style:normal;font-display:swap;src:url(/fonts/ui/instrument-sans-latin-500-normal.woff2) format("woff2")}
@@ -9,7 +9,7 @@
 :root{
   --paper:#F2EEE3; --bone:#E8E3D3; --ink:#1C1B18; --muted:#625D52; --line:#D3CCBA;
   --olive:#4A5733; --olive-soft:#DDE2CB; --on-ink:#F2EEE3;
-  --rule:#1C1B18; --placeholder:#7a7467; --btn-hover-bg:#4A5733; --btn-hover-fg:#FFFFFF;
+  --rule:#1C1B18; --placeholder:#7a7467; --btn-hover-bg:#1C1B18; --btn-hover-fg:#F2EEE3;
   --foot-bg:#1C1B18; --foot-fg:#F2EEE3; --foot-muted:#B9B3A2; --foot-line:#3A3830;
   --chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231C1B18' stroke-width='1.5'/%3E%3C/svg%3E");
   color-scheme:light;
@@ -23,7 +23,7 @@
 [data-theme="dark"]{
   --paper:#1C1B18; --bone:#26251F; --ink:#F2EEE3; --muted:#B9B3A2; --line:#3A3830;
   --olive:#AEBE86; --olive-soft:#2E3424; --on-ink:#1C1B18;
-  --rule:#4A4840; --placeholder:#8E887A; --btn-hover-bg:#AEBE86; --btn-hover-fg:#1C1B18;
+  --rule:#4A4840; --placeholder:#8E887A; --btn-hover-bg:#F2EEE3; --btn-hover-fg:#1C1B18;
   --foot-bg:#121110; --foot-fg:#F2EEE3; --foot-muted:#9E9889; --foot-line:#2C2A25;
   --chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23F2EEE3' stroke-width='1.5'/%3E%3C/svg%3E");
   color-scheme:dark;
@@ -61,7 +61,9 @@ p{margin:0 0 1em}
 /* ---------- header ---------- */
 .site-head{border-bottom:1px solid var(--line);background:var(--paper)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:4.25rem}
-.brand{font-weight:600;font-size:1.25rem;letter-spacing:-.04em;text-decoration:none;color:var(--ink)}
+.brand{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:1.3125rem;letter-spacing:-.02em;line-height:1;text-decoration:none;color:var(--ink)}
+.brand-mark{height:1.75rem;width:auto;aspect-ratio:370/341;flex:none}
+.brand-word{text-transform:lowercase}
 .brand:hover{color:var(--ink)}
 .nav{display:flex;gap:clamp(1rem,2.5vw,2rem);font-size:.9375rem;overflow-x:auto;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
@@ -70,7 +72,7 @@ p{margin:0 0 1em}
 @media (max-width:640px){.site-head .wrap{flex-direction:column;align-items:flex-start;gap:0;padding-top:.75rem}.nav{width:100%;padding-bottom:.25rem;gap:1.25rem}}
 
 /* ---------- buttons & inputs ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.75rem;padding:.65rem 1.4rem;background:var(--ink);color:var(--on-ink);border:1px solid var(--ink);border-radius:var(--r);font:500 1rem/1 var(--ui);text-decoration:none;cursor:pointer;transition:background .15s,color .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.75rem;padding:.65rem 1.4rem;background:var(--olive);color:var(--on-ink);border:1px solid var(--olive);border-radius:var(--r);font:500 1rem/1 var(--ui);text-decoration:none;cursor:pointer;transition:background .15s,color .15s}
 .btn:hover{background:var(--btn-hover-bg);border-color:var(--btn-hover-bg);color:var(--btn-hover-fg)}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
@@ -268,13 +270,13 @@ noscript .specimen,.no-js .specimen{font-family:var(--ff),var(--ui)}
 .price-box{border:1px solid var(--rule);padding:clamp(1.25rem,3vw,2rem);display:grid;gap:1.25rem;background:var(--bone)}
 @media (min-width:700px){.price-box{grid-template-columns:1fr auto;align-items:center}}
 .price-box .price{font-size:2.5rem;letter-spacing:-.03em}
-.gumroad-button.btn{background:var(--ink)!important;color:var(--on-ink)!important;font:500 1rem/1 var(--ui)!important;border:1px solid var(--rule)!important;padding:.65rem 1.4rem!important;border-radius:var(--r)!important}
+.gumroad-button.btn{background:var(--olive)!important;color:var(--on-ink)!important;font:500 1rem/1 var(--ui)!important;border:1px solid var(--rule)!important;padding:.65rem 1.4rem!important;border-radius:var(--r)!important}
 .placeholder-note{background:var(--olive-soft);padding:.75rem 1rem;font-size:.875rem;margin:0 0 1.5rem;border-left:3px solid var(--olive)}
 .related .cards{grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr))}
 .callout{padding:1rem 1.25rem;background:var(--bone);border-left:3px solid var(--rule);max-width:42rem}
 .related{--sp-size:56}
 
-/* ---------- Home revamp v1 (Figma: Typology components) ---------- */
+/* ---------- Home revamp v1 (Figma: Typology components, now Lettermoss) ---------- */
 .btn{min-height:2.75rem;padding:.6rem 1.15rem;font-size:.9375rem}
 .btn.sm{min-height:2.25rem;padding:.4rem .9rem;font-size:.875rem}
 .link-btn{background:none;border:0;color:var(--ink);text-decoration:underline;text-underline-offset:.2em;padding:.5rem 0;min-height:2.75rem;font-weight:500}
