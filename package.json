@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Lettermoss - static handwritten font store for Cloudflare Pages",
+  "description": "Letter Moss - static handwritten font store for Cloudflare Pages",
   "scripts": {
     "build": "node build.mjs",
     "dev": "node build.mjs && node scripts/dev.mjs",
